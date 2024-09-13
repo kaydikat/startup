@@ -29,10 +29,10 @@ The .git directory is where all of the versions get stored.
 - pull request; you change it up and tell the originator if they want your changes
 
 ## Startup Application
-Specification	Elevator pitch and basic design for your startup
-HTML	Basic structural and organizational elements
-CSS	Styling and animating
-React	Interactivity, reactivity, components, and routing using React
-Web service	Remote functions that your application calls on your, and someone else's, web server (e.g. saveScores, getWeather, chatWithFriend)
-Authentication	Creating accounts and logging in
-WebSocket	Support for pushing data from the server. This can be peer to peer communication (e.g. chatting with friends through the browser), or realtime data from the server (e.g. stock prices or the current game leader).
+- **Specification**	Elevator pitch and basic design for your startup
+- **HTML**	Basic structural and organizational elements
+- **CSS**	Styling and animating
+- **React**	Interactivity, reactivity, components, and routing using React
+- **Web service**	Remote functions that your application calls on your, and someone else's, web server (e.g. saveScores, getWeather, chatWithFriend)
+- **Authentication**	Creating accounts and logging in
+- **WebSocket**	Support for pushing data from the server. This can be peer to peer communication (e.g. chatting with friends through the browser), or realtime data from the server (e.g. stock prices or the current game leader).
