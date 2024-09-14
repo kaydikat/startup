@@ -22,5 +22,10 @@
     - saving scores
     - getting high scores
 - **Authentication** - Store users and their respective scores in a database. Register and login users. Credentials securely stored in database. Can't play unless authenticated.
+- **Database data** - Will store temple data and high scores in a database. Will have tables for:
+    - users
+    - temples
+    - scores
 - **WebSocket** - Will use websockets to push data from the server to the client. This will be used to update the scoreboard in real time.
+
 

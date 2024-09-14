@@ -37,3 +37,9 @@ The .git directory is where all of the versions get stored.
 - **Web service**	Remote functions that your application calls on your, and someone else's, web server (e.g. saveScores, getWeather, chatWithFriend)
 - **Authentication**	Creating accounts and logging in
 - **WebSocket**	Support for pushing data from the server. This can be peer to peer communication (e.g. chatting with friends through the browser), or realtime data from the server (e.g. stock prices or the current game leader).
+
+## Design ##
+![Login page](./pictures/IMG_7717.jpg)
+![Post-login page](./pictures/IMG_7718.jpg)
+![Scoreboard](./pictures/IMG_7719.jpg)
+
