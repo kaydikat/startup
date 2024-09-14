@@ -1,8 +1,8 @@
-### Temple Guesser Game 
-# Elevator Pitch #
-     This game is a fun way to test your geography skills. You will be given the name of an LDS temple and you will have to guess it's location on the map. The closer you are to the actual location, the more points you will earn. Have fun competing with your friends to see who can get the highest score.
+# Temple GeoGuesser Game 
+## Elevator Pitch ##
+This game is a fun way to test your geography skills. You will be given the name of an LDS temple and you will have to guess it's location on the map. The closer you are to the actual location, the more points you will earn. Have fun competing with your friends to see who can get the highest score.
 
-# Key Features #
+## Key Features ##
 - Secure login over HTTPS
 - Gives 5 randomly picked temples to guess from
 - Ability to click on the map to guess the location of the temple
@@ -11,7 +11,7 @@
 - Overall score that keeps track of how many points you have earned
 - Scoreboard to keep track of high scores of all users
 
-# Technologies #
+## Technologies ##
 - **HTML**	- Uses correct HTML structure for application. Three pages: login, game, and scoreboard. Includes map, buttons, and text. Includes leaflet.js library for map rendering. 
 - **CSS**	- Application styling that looks good on different screen sizes, uses good whitespace, color choice and contrast. Has a map container, buttons, and text.
 - **JavaScript** - Will create interactivity in the game. Provides login, handles clicks on the map and calculates distance between two points.  
@@ -27,5 +27,11 @@
     - temples
     - scores
 - **WebSocket** - Will use websockets to push data from the server to the client. This will be used to update the scoreboard in real time.
+
+## Design ##
+![Login page](./pictures/IMG_7717.jpg)
+![Post-login page](./pictures/IMG_7718.jpg)
+![Scoreboard](./pictures/IMG_7719.jpg)
+
 
 
