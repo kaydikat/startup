@@ -551,3 +551,21 @@ Hint: gzip, tar, tr
     - child_status - pointer to an integer that will store the exit status of the child
     - options - options for the waitpid function
     - returns the PID of the child that terminated
+
+## Lecture 4 ##
+# execve #
+- int execve(const char *filename, char *const argv[], char *const envp[])
+    - filename - name of the file to execute
+    - argv - array of strings that represent the arguments to the program
+    - envp - array of strings that represent the environment variables
+- execve - replaces the current process with a new process
+- when you call execve any code after that will not be executed
+- picture of stack is on slides
+- execve will be super helpful in Lab 1
+    - kind of like a pipe
+    - meaning the output of the first command will be the input of the second command
+- is called but never returned unless there is an error
+
+# file descripters review 
+- file descripters point to the file
+- pipe / - will open two file descripters
