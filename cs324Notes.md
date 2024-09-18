@@ -521,7 +521,6 @@ Hint: gzip, tar, tr
 ```
     parent: x=0
     child: x=2
-```
 - fork example output explanation
     - parent and child have their own copy of x
     - parent and child are independent of each other
@@ -538,11 +537,12 @@ Hint: gzip, tar, tr
 - if parent doesn't reap child, child becomes a zombie - kernal still knows about it
 - orphan - parent dies before child - init will reap it
 - shells and web servers can consume resources when it comes to zombies
-- when process terminates , it still consumes resources; eg file descriptors, exit status
+- when process terminates , it still consumes resources; eg file descriptors, eit status
 - defunct - means its a zombie
-- wait - waits for a child process to terminate
+- wait - waits for a child process to terminatex
     - pass in an integer
     - passes in a pointer to an integer that will store the exit status of the child
+```
     - wait(int *child_status)
     - returns the PID of the child that terminated
 - waitpid - waits for a specific child process to terminate
@@ -569,3 +569,73 @@ Hint: gzip, tar, tr
 # file descripters review 
 - file descripters point to the file
 - pipe / - will open two file descripters
+
+# fork()
+- returns pid2(PID of child) in the parent; returns 0 in the child
+
+# close()
+- when all references to the file description entry are removed, the entry is removed; it is"open" until then
+
+# dup2()
+- will close one fd and point it at the same file description as another file description
+
+- slides are essential for lab1
+
+# pipe()
+- will use in lab1
+- creates two new file descripters and one will have a read and other will have write
+- will close(m) read end of parent pipe and close(n) write end of child pipe
+- setpgid() allows parent to reap children properly
+
+## Book 10.5-10.12
+- 10.5 - about rio
+- 10.6 
+    - stat - get file status - takes a file name
+    - fstate - get file status - takes a file descriptor
+- 10.7
+    - opendir - takes a pathname and returns a pointer to a DIR stream
+    - d_ino - file location
+    - d_name - file name
+- 10.8
+- 10.9 - I/o redirection
+    - dup2(oldfd, newfd) - copies oldfd to newfd
+- when an exception occurs, control passes to the appropriate exception hadler, and the the processor switches to kernel mode. When it resumer running application code, the processor switches back to user mode.
+
+when -1 is passed as the pid (first aruent to waitpid(), the wait set consists 
+can a pid be negative? -1 is a special value that means wait for any child process
+
+- trap - control passes to the appropriate exception handler, after which the handler returns control to the instruction 
+
+# HW 3 #
+- waitpid - waits for a specific child process to terminate
+    - waitpid(pid_t pid, int *child_status, int options)
+    - pid - PID of the child to wait for
+    - child_status - pointer to an integer that will store the exit status of the child
+    - options - options for the waitpid function
+    - returns the PID of the child that terminated
+- ps -p 1234 - will print the status of the process with PID 1234
+    - will fetch the processes only run by fork() by using ps -p 1234
+    - can do multpile processes by using ps -p 1234, 1235
+- ps -o pid,ppid,pgid,sid,comm - will print the PID, PPID, PGID, SID, and command of the process
+    - pid=PID, ppid=PPID, pgid=PGID, sid=SID, comm=command
+    - user=USER - will print the user of the process
+
+# Lecture 5 #
+- exceptional control flow
+    - exception will happen if there's a change in the control flow of a process
+    - exceptions are caused by the processor
+    - exceptions are handled by the kernal
+- interrupt - caused by ctrl-c
+- traps - intentional exceptions
+    - waitpid
+    - system calls
+    - breakpoint traps
+- faults - unintentional but recoverable
+    - page faults
+    - segmentation faults
+- aborts - unitentional and unrecoverable
+
+- system calls - things that are called within the program that cause context switches
+    - read, write, open, close, fork, execve, waitpid, pipe, dup2
+    - system call happens there will be a breaking program and something will happen in the kernal
+- page faults - when a program tries to access a page that is not in memory
