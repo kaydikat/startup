@@ -214,3 +214,48 @@ For example, you can list the files in a directory, pipe it into grep to search 
     - <img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png" alt="Google logo">
 - create a hyperlink by url
     - <a href="https://www.google.com">Google</a>
+
+## HTML Input
+- <input> - text, password, email, number, date, time, color, range, checkbox, radio, file, submit, reset, button
+    - <input type="text" placeholder="Enter your name">
+- elements
+    - <input> - text, password, email, number, date, time, color, range, checkbox, radio, file, submit, reset, button
+    - <textarea> - text area
+    - <select> - select list
+        - <option> - option in a select list
+    - <button> - button
+    - <label> - label
+        - <label for="checkbox1">Check me</label> <input type="checkbox" name="varCheckbox" value="checkbox1" checked />
+    - <form> - submite values of the inpus it contains
+    - optgroup - group options in a select list
+        - <select>
+            - <optgroup label="Fruits">
+                - <option value="apple">Apple</option>
+                - <option value="orange">Orange</option>
+            - </optgroup>
+            - <optgroup label="Vegetables">
+                - <option value="carrot">Carrot</option>
+                - <option value="pepper">Pepper</option>
+            - </optgroup>
+        - </select>
+      </li>
+      <li>
+        <label for="color">Color: </label>
+        <input type="color" name="varColor" id="color" />
+      </li>
+      // change default folor to red
+        <li>
+            <label for="color">Color: </label>
+            <input type="color" name="varColor" id="color" value="#ff0000" />
+## Media Html elements
+- all media tags take in URK
+- images
+    - <img alt="mountain landscape" src="https://images.pexels.com/photos/164170/pexels-photo-164170.jpeg" />
+- audio
+    - <audio controls src="testAudio.mp3"></audio>
+- video
+    - <video controls width="300" crossorigin="anonymous">
+  <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" />
+</video>
+    - <h2>Video</h2>
+<video controls width="300"> <source src="https://youtu.be/JPDyWioYptY?list=LL" />

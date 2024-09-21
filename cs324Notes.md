@@ -619,7 +619,50 @@ can a pid be negative? -1 is a special value that means wait for any child proce
 - ps -o pid,ppid,pgid,sid,comm - will print the PID, PPID, PGID, SID, and command of the process
     - pid=PID, ppid=PPID, pgid=PGID, sid=SID, comm=command
     - user=USER - will print the user of the process
-
+- wait() - waits for a child process to terminate
+    - pass in an integer
+    - passes in a pointer to an integer that will store the exit status of the child
+    - wait(int *child_status)
+    - wait(NULL) - will wait for any child process to terminate
+    - wait() - will wait for any child process to terminate
+    - fopen - opens a file
+        - FILE *fopen(const char *filename, const char *mode)
+        - eg: FILE *fp = fopen("file.txt", "r");
+        - Before the call to fork(), open the file fork-output.txt for writing (see the man page for fopen(3)
+        - FILE *fp = fopen("fork-output.txt", "w");
+            - *fp - pointer to the file
+            - FILE - type of the file
+        - fileno - gets the file descriptor of a file
+            - int fileno(FILE *stream)
+            - fileno(fp) - will get the file descriptor of the file
+        - write to a file by using fprintf
+            - fprintf(fp, "Hello, world!\n");
+            - fprintf(fp, "Hello, world!\n") - will write "Hello, world!" to the file
+        - fflush - flushes the output buffer of a file
+            - int fflush(FILE *stream)
+            - fflush(fp) - will flush the output buffer of the file
+        - pipe - creates a pipe
+            - int pipe(int pipefd[2]) - will create a pipe
+            - pipe(pipefd) - will create a pipe
+                - difference between int pipefd[2] and pipefd
+                    - int pipefd[2] - declares an array of two integers
+                    - pipefd - is a pointer to an integer
+            - pipefd[0] - read end of the pipe
+            - pipefd[1] - write end of the pipe
+        - close read end of pipe by using close(pipefd[0])
+            - close(pipefd[0]) - will close the read end of the pipe
+        - declare buffer by using char buf[1024]
+            - char buf[1024] - declares a buffer of 1024 characters
+        - Read from file descriptor corresponding to the read end of the pipe (see the man page for read(2)) into a buffer that you have declared. Save the number of bytes read (return value of read()), and use that value to add a null character after them, so string operations can be performed on it (see the man page for string(3)).
+            - int n = read(pipefd[0], buf, 1024);
+            - read(pipefd[0], buf, 1024) - will read from the read end of the pipe into the buffer
+            - buf[n] = '\0'; - will add a null character after the bytes read
+        -Print the string retrieved from read() to stdout. Note that printf() and fprintf() require a null-terminated string, i.e., to know where the string ends. If you have not properly added the null character, the command will yield unexpected results. See an example of adding the null byte here (i.e., after read() was used to read bytes from the file).
+            - printf("%s", buf);
+            - printf("%s", buf) - will print the string to stdout
+        - dif file.txt file2.txt - will print the differences between file.txt and file2.txt
+            - diff file.txt file2.txt - will print the differences between file.txt and file2.txt
+         
 # Lecture 5 #
 - exceptional control flow
     - exception will happen if there's a change in the control flow of a process
