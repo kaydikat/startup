@@ -682,3 +682,43 @@ can a pid be negative? -1 is a special value that means wait for any child proce
     - read, write, open, close, fork, execve, waitpid, pipe, dup2
     - system call happens there will be a breaking program and something will happen in the kernal
 - page faults - when a program tries to access a page that is not in memory
+
+## 8.4
+- parent and child have different have their own private address spaces meaning meaning any change in one of the processes will not affect the memory of the other processes
+- concurrecncy - is a process starts before another has ended it is concurrent
+- exceptional control flow
+- can change from user mode to kernal mode by using system calls
+    - fork, execve, waitpid, pipe, dup2
+- exceptions can be caused by the processor or the program to enter kernal mode
+- when exception happens kernal gets control
+
+- asynchronous exceptions - coming from the outside
+    - cntrl-c
+    - timer interrupt
+- synchronous exceptions - coming from the inside
+    - system calls
+    - traps
+    - faults
+    - aborts
+
+## Signals
+- notifies the process that an event has occurred
+- 2 SIGINT - teminates - user typed ctrol-c
+- there's a function call kill and system call kill and their not the same
+*exam
+- send - sends a signal to a process
+- recieve - recieves a signal
+
+- can catch the signal by using a signal handler
+- tell system that instead of doing default thing you want it to do the thing that you coded
+
+*exam
+- anytime we run a process the kernal does this calculation
+- it gets pending + not blocked
+    - if this is not zero then it will get lowest number signal and will receive it
+    - receiving part is what checks if the signal is blocked or not, then it will act on it
+        - ready to take action on the signal
+    - kernal mark the pending bit - send
+    - kernal will check if the signal is blocked or not
+    - if no non zero it will go to the lowest number signal and receive will receive it
+    - signals cannot be used to count the occurences of events in other processes

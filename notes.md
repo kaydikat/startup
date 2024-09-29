@@ -259,3 +259,25 @@ For example, you can list the files in a directory, pipe it into grep to search 
 </video>
     - <h2>Video</h2>
 <video controls width="300"> <source src="https://youtu.be/JPDyWioYptY?list=LL" />
+
+## CSS
+- CSS - Cascading Style Sheets
+- rule - selector and declaration block
+    - selector - element you want to style
+    - declaration block - property and value
+- link - <link rel="stylesheet" href="styles.css">
+- descendent combinator - style all elements that are descendants of another element
+    - <div>
+        - <p>hello</p>
+    - </div>
+    - div p {color: red;}
+- class selector - style all elements with a specific class
+    - <p class="greeting">Hello</p>
+    - .greeting {color: red;}
+- id selector - style a single element with a specific id
+    - <p id="hello">Hello</p>
+    - #hello {color: red;}
+- attribute selector - style all elements with a specific attribute
+    - <p data-greeting="hello">Hello</p>
+    - [data-greeting] {color: red;}
+- section:hover {background-color: yellow;}
