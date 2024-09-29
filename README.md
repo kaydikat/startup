@@ -28,6 +28,17 @@ This game is a fun way to test your geography skills. You will be given the name
     - scores
 - **WebSocket** - Will be used to update the scoreboard in real time.
 
+## HTML Deliverable ##
+- **HTML pages** - Three HTML pages that represent the ability to login, play, and look at scoreboard
+- **Tags** - Correct use of BODY, NAV for navigation links, MAIN, HEADER, and FOOTER for github.
+- **Links** - Navigation links at the top take you to the page you want to go to.
+- **Text** - Text that tells you how to play. Also tells you your score.
+- **3rd Party Service Calls** - Created image placeholder in play page for Google Maps Interactive API to go.
+- **Images** - Temple image on home page and placeholder map image on play page.
+- **Login** - Email and password input boxes to create and login.
+- **Database** - Scoreboard stores rank, name, score, and number.
+- **Websocket** - Messages on play page tell you who else is playing and what score they got. 
+
 ## Design ##
 ![Login page](./pictures/IMG_7717.jpg)
 ![Post-login page](./pictures/IMG_7718.jpg)
