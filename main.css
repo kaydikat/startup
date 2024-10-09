@@ -2,8 +2,77 @@ body {
     display: flex;
     flex-direction: column;
     min-width: 375px;
-  }
+    margin: 0;
+}
 
-  header {
+header {
     flex: 0 80px;
-  }
+}
+
+.container {
+    display: flex;
+    height: calc(100vh - 160px); /* Adjust for header/footer */
+}
+
+.left-side {
+    width: 50%;
+    padding: 20px;
+    background-color: #abcdef;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.right-side {
+    width: 50%;
+    padding: 20px;
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Title Styling */
+.title {
+    font-size: 36px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.picture-box {
+    margin-top: 20px;
+}
+
+footer {
+    flex-shrink: 0;
+    text-align: center;
+    padding: 10px;
+    background-color: #f8f8f8;
+}
+
+/* Mobile layout: hides left-side and reduces title size */
+@media (max-width: 600px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .left-side {
+        display: none;
+    }
+
+    .right-side {
+        width: 100%;
+    }
+
+    .title {
+        font-size: 24px; /* Smaller title */
+        text-align: center;
+    }
+
+    .picture-box img {
+        width: 100%; /* Make image responsive on smaller screens */
+        max-width: 100%;
+    }
+}
