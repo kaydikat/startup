@@ -281,3 +281,40 @@ For example, you can list the files in a directory, pipe it into grep to search 
     - <p data-greeting="hello">Hello</p>
     - [data-greeting] {color: red;}
 - section:hover {background-color: yellow;}
+
+## Responsive desin - ability to reconfigure interface based on screen size
+- The float css property moves an element to the left or right of its container element and allows inline elements to wrap around it
+- media
+@media (orientation: portrait) {
+  aside {
+    display: none;
+  }
+}
+
+## CSS Frameeworks  
+- tailwind - smaller definitions thata re applied to individual html elements
+    - <div class="pt-6 md:p-8 text-center md:text-left space-y-4">
+  <img class="w-24 h-24 md:w-48 md:h-auto md:rounded-none rounded-full mx-auto" src="profile.png" />
+  <p class="text-lg font-medium">“Tailwind CSS”</p>
+</div>
+
+- bootstrap - most popular
+    !DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    ...
+  </body>
+</html>
+- this gives links to the bootstrap css file
+
+## CSS Debugging
+- acces developer tools by using inspect option 

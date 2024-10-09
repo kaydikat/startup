@@ -722,3 +722,22 @@ can a pid be negative? -1 is a special value that means wait for any child proce
     - kernal will check if the signal is blocked or not
     - if no non zero it will go to the lowest number signal and receive will receive it
     - signals cannot be used to count the occurences of events in other processes
+
+*exm
+cat < input.txt | grep byu [0-9] > results.txt
+- cat < input.txt - redirects to standard in
+- grep byu [0-9] - will search for byu and a number
+- child1 will be cat
+- child2 will be grep
+- bash will call pipe
+- whe pipe get's called, read and write ends of the pipes are in file descripters 3 and 4
+
+while all the processes are in a sleep loop
+kernel detects all of them; it will be context switching between all of them
+- however; when the kernal comes back to c1, it will come back to the parent process and mark that as a one. but the parent process is not running; 
+- you know that a sif child was eived but actuallly two were received
+and it's a zombie
+his point is that they could have terminate it all; there are 4 sigshilds sent to parent
+- do pending and not blocked; means there was at least on bit that was sent
+- marks the pending as 0; looks like the sigchild handler was called once even though it was called 4 times
+- you can't write a signal handl rto count the nulmber of signals received
