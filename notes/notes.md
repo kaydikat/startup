@@ -318,3 +318,180 @@ For example, you can list the files in a directory, pipe it into grep to search 
 
 ## CSS Debugging
 - acces developer tools by using inspect option 
+
+## JavaScript
+### functions
+- function - first class objects
+    - can be assigned name, passed as a paramete,r returned as a result, and referenced from an object or array just like any other variable
+```
+    function hello(who) {
+    return 'hello ' + who;
+    }
+
+    console.log(hello('world'));
+    // OUTPUT: hello world
+```
+
+- side effects - changes that a function makes to the outside world
+- can define defalut values for parameters
+```
+    function hello(who = 'world') {
+    return 'hello ' + who;
+    }
+
+    console.log(hello());
+    // OUTPUT: hello world
+```
+
+- anonymous functions - functions that are not named
+```
+    const hello = function(who) {
+    return 'hello ' + who;
+    };
+
+    console.log(hello('world'));
+    // OUTPUT: hello world
+```
+- inner functions - functions that are defined inside of other functions
+```
+    function hello(who) {
+    function capitalize(who) {
+        return who.charAt(0).toUpperCase() + who.slice(1);
+    }
+
+    return 'hello ' + capitalize(who);
+    }
+
+    console.log(hello('world'));
+    // OUTPUT: hello World
+```
+- console - object that provides access to the browser's debugging console
+    - console.count - logs the number of times that count has been called
+    - console.error - logs an error message
+    - console.group - groups messages together
+    - console.log - logs a message
+
+- how to add javascript to html
+```
+<head>
+  <script src="javascript.js"></script>
+</head>
+<body>
+  <button onclick="sayHello()">Say Hello</button>
+  <button onclick="sayGoodbye()">Say Goodbye</button>
+  <script>
+    function sayGoodbye() {
+      alert('Goodbye');
+    }
+  </script>
+</body>
+```
+
+- declaring variables
+    -  let x = 1 - can be reassigned
+    - const x = 1 - cannot be reassigned
+- primitives
+    - number, string, boolean, null, undefined, symbol
+- objects
+    - object - collection of key-value pairs
+        - let person = {name: 'John', age: 30};
+    - function - object that can be called
+        - function hello(who) {}
+    - date - object that represents a date and time
+        - let date = new Date();
+    - array - object that stores a list of values
+        - let fruits = ['apple', 'banana', 'cherry'];
+    - Map - object that stores key-value pairs
+        - let fruits = new Map([['apple', 1], ['banana', 2], ['cherry', 3]]);
+    - JSON - object that stores data in a text format
+        - let person = '{"name": "John", "age": 30}';
+- operators
+    - arithmetic - +, -, *, /, %, ++, --
+    - assignment - =, +=, -=, *=, /=, %=
+    - comparison - ==, ===, !=, !==, >, <, >=, <=
+    - logical - &&, ||, !
+    - bitwise - &, |, ^, ~, <<, >>
+    - string - +, +=, ``
+    - conditional - ?:
+    - comma - ,
+    - unary - +, -, ++, --, typeof, delete, void
+    - relational - in, instanceof
+- strict equality - === - compares both value and type
+
+- conditionals
+    -  if, else, and if else
+- loops
+    - for, while, do while, for of, for in, switch
+    - for
+        - for (let i = 0; i < 10; i++) {
+            console.log(i);
+        }
+    - do while
+        - let i = 0;
+        do {
+            console.log(i);
+            i++;
+        } while (i < 10);
+    - while
+        - let i = 0;
+        while (i < 10) {
+            console.log(i);
+            i++;
+        }
+    - for in - iterates over the properties of an object
+        - let person = {name: 'John', age: 30};
+        for (let key in person) {
+            console.log(key, person[key]);
+        }
+    - for of - iterates over the values of an iterable object
+        - let fruits = ['apple', 'banana', 'cherry'];
+        for (let fruit of fruits) {
+            console.log(fruit);
+        }
+        - output - apple, banana, cherry
+    - break and continue
+        - let i = 0;
+        while (true) {
+        console.log(i);
+        if (i === 0) {
+            i++;
+            continue;
+        } else {
+            break;
+        }
+        }
+        // OUTPUT: 0 1
+
+- strings
+    - ' and " can be used to define strings
+    - ` can be used to define template literals
+```
+    'quoted text'; // " also works
+
+    const l = 'literal';
+    console.log(`string ${l + (1 + 1)} text`);
+    // OUTPUT: string literal2 text
+```
+- string functions
+    - length - returns the length of a string
+    - toUpperCase() - converts a string to uppercase
+    - toLowerCase() - converts a string to lowercase
+    - indexOf() - returns the index of the first occurrence of a specified value in a string
+    - split() - splits a string into an array of substrings
+    - startsWith() - checks if a string starts with a specified value
+```
+    const s = 'Example:조선글';
+    
+    console.log(s.length);
+    // OUTPUT: 11
+    console.log(s.indexOf('조선글'));
+    // OUTPUT: 8
+    console.log(s.split(':'));
+    // OUTPUT: ['Example', '조선글']
+    console.log(s.startsWith('Ex'));
+    // OUTPUT: true
+    console.log(s.endsWith('조선글'));
+    // OUTPUT: true
+    console.log(s.toLowerCase());
+    // OUTPUT: example:조선글
+```

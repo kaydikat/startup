@@ -12,6 +12,10 @@ header {
 .container {
     display: flex;
     height: calc(100vh - 160px); /* Adjust for header/footer */
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
 }
 
 .left-side {
