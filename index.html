@@ -16,43 +16,70 @@
       integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
       crossorigin="anonymous"
     />
+    <style>
+      /* Custom styles */
+      html, body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        width: 100%;
+      }
+      .left-side {
+        background-color: #abcdef;
+        height: 100vh; /* Full viewport height */
+      }
+      .right-side {
+        background-color: #ffffff;
+        height: 100vh;
+      }
+      @media (max-width: 600px) {
+        .left-side {
+          display: none;
+        }
+        .right-side {
+          width: 100%;
+          height: 100vh;
+        }
+      }
+    </style>
   </head>
   <body>
     <!-- Header section (optional) -->
 
     <!-- Main content container for both sides -->
-    <div class="container">
+    <div class="container-fluid">
       <!-- Left side: Picture, Title, How to Play -->
-      <div class="left-side">
-        <header>
-          <h1 class="title">Temple Guesser</h1>
-        </header>
-        <h2>How to Play</h2>
-        <p>This game is a fun way to test your geography skills. You will be given the name of an LDS temple and you will have to guess its location on the map. The closer you are to the actual location, the more points you will earn. Have fun competing with your friends to see who can get the highest score!</p>
-      </div>
-
-      <!-- Right side: Login form -->
-      <div class="right-side">
-        <h2>Login or Sign Up</h2>
-        <form method="get" action="play.html">
-          <div class="input-group mb-3">
-            <span class="input-group-text">@</span>
-            <input class="form-control" type="text" placeholder="your@email.com" />
-          </div>
-          <div class="input-group mb-3">
-            <span class="input-group-text">🔒</span>
-            <input class="form-control" type="password" placeholder="password" />
-          </div>
-          <button type="submit" class="btn btn-primary">Login</button>
-          <button type="submit" class="btn btn-secondary">Create</button>
-        </form>
+      <div class="row">
+        <div class="col-6 left-side d-flex flex-column justify-content-center align-items-center">
+          <header>
+            <h1 class="title">Temple Guesser</h1>
+          </header>
+          <h2>How to Play</h2>
+          <p>This game is a fun way to test your geography skills. You will be given the name of an LDS temple and you will have to guess its location on the map. The closer you are to the actual location, the more points you will earn. Have fun competing with your friends to see who can get the highest score!</p>
+        </div>
+        <!-- Right side: Login form -->
+        <div class="col-6 right-side d-flex flex-column justify-content-center align-items-center">
+          <h2>Login or Sign Up</h2>
+                  <form method="get" action="play.html">
+            <div class="input-group mb-3">
+              <span class="input-group-text">@</span>
+              <input class="form-control" type="text" placeholder="your@email.com" />
+            </div>
+            <div class="input-group mb-3">
+              <span class="input-group-text">🔒</span>
+              <input class="form-control" type="password" placeholder="password" />
+            </div>
+            <button type="submit" class="btn btn-primary">Login</button>
+            <button type="submit" class="btn btn-secondary">Create</button>
+          </form>
         
-        <!-- <div id="picture" class="picture-box">
-          <img
-            src="https://churchofjesuschristtemples.org/assets/img/temples/salt-lake-temple/salt-lake-temple-15669-main.jpg"
-            alt="Salt Lake Temple"
-          />
-        </div> -->
+          <!-- <div id="picture" class="picture-box">
+            <img
+              src="https://churchofjesuschristtemples.org/assets/img/temples/salt-lake-temple/salt-lake-temple-15669-main.jpg"
+              alt="Salt Lake Temple"
+            />
+          </div> -->
+        </div>
       </div>
     </div>
 
