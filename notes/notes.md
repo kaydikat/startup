@@ -495,3 +495,20 @@ For example, you can list the files in a directory, pipe it into grep to search 
     console.log(s.toLowerCase());
     // OUTPUT: example:조선글
 ```
+
+- arrows
+    - a.sort((v1, v2) => v1 - v2);
+```
+() => 3;
+// RETURNS: 3
+
+() => {
+  3;
+};
+// RETURNS: undefined
+
+() => {
+  return 3;
+};
+// RETURNS: 3
+```
