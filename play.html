@@ -45,16 +45,20 @@
         </div>
       </nav>
     </header>
-    <main>
-      <div class="players">
-        Player:
-        <span class="player-name">Mystery player</span>
-      </div>
-      <ul class="notification">
-        <li class="player-name">Tim started a new game</li>
-        <li class="player-name">Ada started a new game</li>
-        <li class="player-name">Tim got a perfect 500 points!</li>
-      </ul>
+    <main class="container-fluid">
+      <div class="row">
+        <!-- Sidebar -->
+        <aside class="col-md-3 sidebar">
+            <div class="players">
+              Player
+              <span class="player-name">Mystery player</span>
+              <div id="player-messages">
+                <div class="event"><span class="player-event">Linus</span> scored 377</div>
+                <div class="event"><span class="player-event">Linus</span> started a new game</div>
+                <div class="event"><span class="system-event">game</span> connected</div>
+              </div>
+            </div>
+        </aside>
 
       <!-- More formatting with old style HTML -->
       <br />
