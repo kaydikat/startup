@@ -3,13 +3,13 @@ html, body {
     padding: 0;
     height: 100%;
     width: 100%;
-    overflow-x: hidden; /* Prevent horizontal scrolling */
+    overflow-x: hidden;
   }
 
 .left-side {
     /* change text color to white */
     color: white;
-    background-color: #abcdef;
+    background-color: #0e83c1;
     height: 100vh;
   }
   

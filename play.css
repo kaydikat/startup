@@ -34,8 +34,11 @@ body {
     left: 10px;
   }
   .footer {
-    margin-top: 20px;
-  }
+    flex-shrink: 0;
+    text-align: center;
+    padding: 10px;
+    background-color: #f8f8f8;
+    }
   /* Responsive adjustments */
   @media (max-width: 767px) {
     .sidebar {
@@ -45,6 +48,7 @@ body {
       margin-top: 20px;
     }
   }
+
 
 .players {
     flex: 1;
