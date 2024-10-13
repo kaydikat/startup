@@ -39,6 +39,13 @@ This game is a fun way to test your geography skills. You will be given the name
 - **Database** - Scoreboard stores rank, name, score, and number.
 - **Websocket** - Messages on play page tell you who else is playing and what score they got. 
 
+## CSS Deliverable ##
+- **CSS header, footer, and main content body** - Header contains info to Bootstrap functionality and CSS. Footer is at the bottom with consistent styling and link to Github. Body contains navigation bar and main parts for each page.
+- **Navigation Elements** - Used Bootstrap funtionality to create navigation bar on top. When it shrinks down, it will turn into an accordion that can be pressed to show elements. 
+- **Window Resizing** - Used Bootstrap's "container-fluid" do make divs responsive to window resizing. Used CSS @media to determine limits for shrinking down.
+- **Application Elements** - Used good contrast and whitespace.
+- **Text Content** - Used consistent Bootstrap text fonts throughout. Headers and titles are properly sized to match importance.
+- **Images** - Created picture box that holds temple picture and used CSS to make so it stays within the bounds of the left side of the screen. Also made so the bottom gets cut off when the screen becomes smaller.
 ## Design ##
 ![Login page](./pictures/IMG_7717.jpg)
 ![Post-login page](./pictures/IMG_7718.jpg)

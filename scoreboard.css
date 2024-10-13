@@ -17,6 +17,10 @@ footer {
     position: relative;
 }
 
+.table {
+    background-color: #abcdef;
+  }
+
   /* Responsive adjustments */
   @media (max-width: 767px) {
     .scoreboard {

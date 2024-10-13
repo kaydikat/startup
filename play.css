@@ -33,12 +33,13 @@ body {
     top: 10px;
     left: 10px;
   }
-  .footer {
+
+footer {
     flex-shrink: 0;
     text-align: center;
     padding: 10px;
     background-color: #f8f8f8;
-    }
+}
   /* Responsive adjustments */
   @media (max-width: 767px) {
     .sidebar {
