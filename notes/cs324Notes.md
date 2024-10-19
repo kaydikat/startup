@@ -741,3 +741,10 @@ his point is that they could have terminate it all; there are 4 sigshilds sent t
 - do pending and not blocked; means there was at least on bit that was sent
 - marks the pending as 0; looks like the sigchild handler was called once even though it was called 4 times
 - you can't write a signal handl rto count the nulmber of signals received
+
+## IO Redirection ##
+- if there's an & on the right hand side of fd then treate fd as an index into file descripter table
+- for ./a.out | grep A - stout is only one going through pipe and getting filtered. stderr is just printed to terminal.
+- ./a.out | grep FOO - just XYZ will be outputed
+- bash will do redirection of the pipe first
+- ./a.out s>&1 | grep X - redirects both stderr and stout to pipe

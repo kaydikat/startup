@@ -206,6 +206,14 @@ For example, you can list the files in a directory, pipe it into grep to search 
 - <rt> - ruby text
 - <rp> - ruby parenthesis
 - <wbr> - word break opportunity
+- <br> - break
+- <hr> - horizontal rule
+- <meta> - metadata
+- <title> - title
+- <base> - base
+- <link> - link
+    - <link rel="stylesheet" href="styles.css">
+- <style> - style
 
 - body has three children: header, main, and footer
 - headr contatins a paragraph with a span, and a navigavtion contating multiple division of sub-content
@@ -227,6 +235,7 @@ For example, you can list the files in a directory, pipe it into grep to search 
     - <label> - label
         - <label for="checkbox1">Check me</label> <input type="checkbox" name="varCheckbox" value="checkbox1" checked />
     - <form> - submite values of the inpus it contains
+        -`<form action="submit.html" method="post">`
     - optgroup - group options in a select list
         - <select>
             - <optgroup label="Fruits">
@@ -247,6 +256,166 @@ For example, you can list the files in a directory, pipe it into grep to search 
         <li>
             <label for="color">Color: </label>
             <input type="color" name="varColor" id="color" value="#ff0000" />
+## types of input elements
+- text
+- password - hides the text
+- email - validates the email
+- tel - validates the phone number
+- url - validates the url
+- number
+- checkbox
+- radio
+- range
+- date
+- datetime-local
+- month
+- week
+- color
+- file
+- submit
+
+- attributes of input elements  
+    - name - name of the input
+    - value - value of the input
+    - disabled - disables the input
+    - required - makes the input required
+
+- example
+```
+<body>
+  <h1>Example Form</h1>
+  <form action="formSubmit.html" method="post">
+    <ul>
+      <li>
+        <!-- Includes validation-->
+        <label for="text">Text: </label>
+        <input type="text" id="text" name="varText" placeholder="text here" required pattern="[Aa].*" />
+      </li>
+      <li>
+        <label for="password">Password: </label>
+        <input type="password" id="password" name="varPassword" />
+      </li>
+      <li>
+        <label for="email">Email: </label>
+        <input type="email" id="email" name="varEmail" />
+      </li>
+      <li>
+        <label for="textarea">TextArea: </label>
+        <textarea id="textarea" name="varTextarea"></textarea>
+      </li>
+      <li>
+        <label for="select">Select: </label>
+        <select id="select" name="varSelect">
+          <option>option1</option>
+          <option selected>option2</option>
+          <option>option3</option>
+        </select>
+      </li>
+      <li>
+        <label for="optgroup">OptGroup: </label>
+        <select id="optgroup" name="varOptGroup">
+          <optgroup label="group1">
+            <option>option1</option>
+            <option selected>option2</option>
+          </optgroup>
+          <optgroup label="group2">
+            <option>option3</option>
+            <option>option4</option>
+          </optgroup>
+        </select>
+      </li>
+      <li>
+        <fieldset>
+          <legend>checkbox</legend>
+          <label for="checkbox1">checkbox1</label>
+          <input type="checkbox" id="checkbox1" name="varCheckbox" value="checkbox1" checked />
+          <label for="checkbox2">checkbox2</label>
+          <input type="checkbox" id="checkbox2" name="varCheckbox" value="checkbox2" />
+          <label for="checkbox3">checkbox3</label>
+          <input type="checkbox" id="checkbox3" name="varCheckbox" value="checkbox3" />
+        </fieldset>
+      </li>
+      <li>
+        <fieldset>
+          <legend>radio</legend>
+          <label for="radio1">radio1</label>
+          <input type="radio" id="radio1" name="varRadio" value="radio1" checked />
+          <label for="radio2">radio2</label>
+          <input type="radio" id="radio2" name="varRadio" value="radio2" />
+          <label for="radio3">radio3</label>
+          <input type="radio" id="radio3" name="varRadio" value="radio3" />
+        </fieldset>
+      </li>
+      <li>
+        <!-- Submit form with POST method and enctype="multipart/form-data" to send file contents. -->
+        <label for="file">File: </label>
+        <input type="file" id="file" name="varFile" accept="image/*" multiple />
+      </li>
+      <li>
+        <label for="search">Search: </label>
+        <input type="search" id="search" name="varSearch" />
+      </li>
+      <li>
+        <label for="tel">Tel: </label>
+        <input type="tel" id="tel" name="varTel" placeholder="###-####" pattern="\d{3}-\d{4}" />
+      </li>
+      <li>
+        <label for="url">URL: </label>
+        <input type="url" id="url" name="varUrl" />
+      </li>
+      <li>
+        <label for="number">Number: </label>
+        <input type="number" name="varNumber" id="number" min="1" max="10" step="1" />
+      </li>
+      <li>
+        <label for="range">Range: </label>
+        <input type="range" name="varRange" id="range" min="0" max="100" step="1" value="0" />
+        <output id="rangeOutput" for="range">0</output>
+        <!-- Range requires some JavaScript in order to make it work. Ignore this for now. -->
+        <script>
+          const range = document.querySelector('#range');
+          const rangeOutput = document.querySelector('#rangeOutput');
+          range.addEventListener('input', function() {
+            rangeOutput.textContent = range.value;
+          });
+        </script>
+      </li>
+      <li>
+        <label for="progress">Progress: </label>
+        <progress id="progress" max="100" value="75"></progress>
+      </li>
+      <li>
+        <label for="meter">Meter: </label>
+        <meter id="meter" min="0" max="100" value="50" low="33" high="66" optimum="50"></meter>
+      </li>
+      <li>
+        <label for="datetime">DateTime: </label>
+        <input type="datetime-local" name="varDatetime" id="datetime" />
+      </li>
+      <li>
+        <label for="time">Time: </label>
+        <input type="time" name="varTime" id="time" />
+      </li>
+      <li>
+        <label for="month">Month: </label>
+        <input type="month" name="varMonth" id="month" />
+      </li>
+      <li>
+        <label for="week">Week: </label>
+        <input type="week" name="varWeek" id="week" />
+      </li>
+      <li>
+        <label for="color">Color: </label>
+        <input type="color" name="varColor" id="color" />
+      </li>
+      <!-- This doesn't show up to the user, but allows the form to send associated data. -->
+      <input type="hidden" id="secretData" name="varSecretData" value="1989 - the web was born" />
+    </ul>
+
+    <button type="submit">Submit</button>
+  </form>
+</body>
+```
 ## Media Html elements
 - all media tags take in URK
 - images
@@ -259,7 +428,16 @@ For example, you can list the files in a directory, pipe it into grep to search 
 </video>
     - <h2>Video</h2>
 <video controls width="300"> <source src="https://youtu.be/JPDyWioYptY?list=LL" />
+- svg - scalable vector graphics
+```
+    <svg width="100" height="100">
+  circle cx="50" cy="50" r="40" stroke="black" stroke-width="3" fill="red" >
 
+</svg>
+```
+- canvas - drawing
+    - <canvas id="canvas" width="200" height="100"></canvas>
+    
 ## CSS
 - CSS - Cascading Style Sheets
 - rule - selector and declaration block
@@ -280,7 +458,29 @@ For example, you can list the files in a directory, pipe it into grep to search 
 - attribute selector - style all elements with a specific attribute
     - <p data-greeting="hello">Hello</p>
     - [data-greeting] {color: red;}
-- section:hover {background-color: yellow;}
+    - p[class = 'summary'] {color: red;}
+- pseudo-class selector - style an element based on its state
+    - section:hover {background-color: yellow;}
+- style - how html uses css
+- innermost box - holds the content 
+- padding - space between the content and the border, has background color
+    - padding: 10px; - 10 pixels on all sides
+    - padding: 10px 20px; - 10 pixels on top and bottom, 20 pixels on left and right
+    - padding: 10px 20px 30px; - 10 pixels on top, 20 pixels on left and right, 30 pixels on bottom
+    - padding: 10px 20px 30px 40px; - 10 pixels on top, 20 pixels on right, 30 pixels on bottom, 40 pixels on left
+- border - line that goes around the padding
+    - border: 1px solid black; - 1 pixel solid black border
+- margin - space between the border and the next element, only represents whitespce
+    - margin: 10px; - 10 pixels on all sides
+- change box-sizing by using border-box
+    - * {box-sizing: border-box;}
+- combinators
+    - descendenta - any section that is a descendnt of a body
+    - child - any section that is a direct child of a section - section > p
+    - general sibling - any section that is a sibling of a dic - div ~ p
+    - adjacent sibling - any section that is an adjacent div sibling - div + p
+- selectos 
+
 
 ## Responsive desin - ability to reconfigure interface based on screen size
 - The float css property moves an element to the left or right of its container element and allows inline elements to wrap around it
@@ -512,3 +712,319 @@ For example, you can list the files in a directory, pipe it into grep to search 
 };
 // RETURNS: 3
 ```
+
+## JSON
+- JSON - JavaScript Object Notation
+- data interchange format
+- data is in name/value pairs
+- date types 
+    - string, number, object, array, true, false, null
+- objects - contain zero or more key value pairs, key is always a string and the value must be a valid json data type
+    - ezample - {"name": "John", "age": 30}
+- can convert json to and from javascript using json.parse and josn.stringify
+```
+    const person = '{"name": "John", "age": 30}';
+    const obj = JSON.parse(person);
+    console.log(obj.name);
+    // OUTPUT: John
+
+    const person = {name: 'John', age: 30};
+    const str = JSON.stringify(person);
+    console.log(str);
+    // OUTPUT: {"name":"John","age":30}
+```
+## DOM
+- DOM Element interface: provides the means for accessing and modifying the properties of an element
+``` function displayElement(el) {
+    console.log(el.tagName);
+    for (const child of el.children) {
+        displayElement(child);
+    }
+    displayElement(document.body);
+}
+- query selectall - returns a list of all elements that match a specified CSS selector
+``` const elements = document.querySelectorAll('p');
+for (const element of elements) {
+    console.log(element.textContent);
+}
+```
+- you can insert, modify, and delete elements
+- you can add event listeners to elements
+    - element.addEventListener('click', () => console.log('clicked'));
+    - this will log clicked when the element is clicked
+
+## javascript objects 
+- object - collection of key-value pairs
+    - let person = {name: 'John', age: 30};
+- property - key-value pair
+    - person.name
+- Objects also have common object-oriented functionality such as constructors, a this pointer, static properties and functions, and inheritance.
+```
+    const obj = new Object({ a: 3 });
+obj['b'] = 'fish';
+obj.c = [1, 2, 3];
+obj.hello = function () {
+  console.log('hello');
+};
+
+console.log(obj);
+// OUTPUT: {a: 3, b: 'fish', c: [1,2,3], hello: func}`
+```
+- object funtions
+    - entries - returns an array of key-value pairs
+    - keys - returns an array of keys
+    - values - returns an array of valuex
+-  constructor - function that creates an object
+```
+    function Person(name, age) {
+    this.name = name;
+    this.age = age;
+    }
+
+    const john = new Person('John', 30);
+    console.log(john);
+    // OUTPUT: Person {name: 'John', age: 30}
+```
+    - you can create methods on the object as part of its encapsulation
+- this - refers to a point to the obect
+
+- classes
+    - you can use classe to define objects. Declare intent to create reuable component rather than a none-off ojbect.
+    - make properties and function private with #
+    - class Person {
+        constructor(name, age) {
+            this.#name = name;
+            this.#age = age;
+        }
+- inheritance - classes can be extended by using the exends keyword
+    - super - calls the parent class constructor
+```
+class Person {
+  constructor(name) {
+    this.name = name;
+  }
+
+  print() {
+    return 'My name is ' + this.name;
+  }
+}
+
+class Employee extends Person {
+  constructor(name, position) {
+    super(name);
+    this.position = position;
+  }
+
+  print() {
+    return super.print() + '. I am a ' + this.position;
+  }
+}
+
+const e = new Employee('Eich', 'programmer');
+console.log(e.print());
+// OUTPUT: My name is Eich. I am a programmer
+```
+## Regular Expressions
+- const objRegex = new RegExp('ab*', 'i');
+- const objRegex = /ab*/i;
+- string class has several functions
+    - match - returns an array of matches
+        - text.match(objRegex);
+    - replace - replaces matches with a string
+        - text.replace(objRegex, 'c');
+    - search - returns the index of the first match
+        - text.search(objRegex);
+    - split - splits a string into an array of substrings
+        - text.split(objRegex);
+## Rest and spread
+- rest - allows you to represent an indefinite number of arguments as an array
+    - function sum(...args) {
+        return args.reduce((a, b) => a + b, 0);
+    }
+    - contains the "rest" of the parameters
+- spread - allows you to expand an array into individual elements
+    - const arr = [1, 2, 3];
+    - console.log(...arr);
+    - can be used to combine arrays
+        - const arr1 = [1, 2, 3];
+        - const arr2 = [4, 5, 6];
+        - const arr3 = [...arr1, ...arr2];
+- Java Script exceptions
+    -generate exception using throw
+    - catch block catches the exception
+    - do this by wrapping code block with try
+    - finally block always executes
+    ```
+    try {
+    throw 'error';
+    } catch (e) {
+    console.log(e);
+    } finally {
+    console.log('finally');
+    }
+    - fallbacks - with fallback you can always return something
+    ``` 
+    function getScores() {
+  try {
+    const scores = scoringService.getScores();
+    // store the scores so that we can use them later if the network is not available
+    window.localStorage.setItem('scores', scores);
+    return scores;
+  } catch {
+    return window.localStorage.getItem('scores');
+  }
+}
+    }
+    ```
+## Destructuring
+- destructuring - process of pulling individual items out of an existing one, or removing structe
+- helpful when you only care about a few items in the original structure
+```
+const arr = [1, 2, 3];
+const [a, b] = arr;
+console.log(a, b);
+// OUTPUT: 1 2
+```
+rest sytax
+``` 
+const [b,c, ...rest] = arr;
+console.log(b,c, rest);
+// OUTPUT: 1 2 [3]
+```
+- can also destructure objects
+
+## Scope
+- scope - where variables are accessible
+1. global - accessible everywhere
+2. module - accessible within a module
+3. function - accessible within a function
+4. block - accessible within a block
+
+- var ignores block scope
+
+- this - variablss that points to an object that contatins the context within the scope
+    - global - window
+    - function - object that contains the function
+    - object - object
+- closure - a function and its surrounding state
+    - function outer() {
+        const x = 1;
+        function inner() {
+            console.log(x);
+        }
+        return inner;
+    }
+    const f = outer();
+    f();
+    - whatever variables are accessible in the outer function are accessible in the inner function
+    - arrow function is different and it will point to gobal not outer fuctnio
+
+## Javascript modules
+- module - a file that contains code
+- node.js - introduced modules to support importing of packages 
+    - commonJS - require and module.exports
+    - ES - import and export
+
+- need to explcitiy export objects from on efile and and import then i to another
+- import into html by using script tag with type module
+    - <script type="module" src="main.js"></script>
+
+## LocalStorage
+- local storage - allows you to store data in the browser
+- four maind function
+    - setItem(name, value) - sets a value
+    - getItem(name) - gets a value
+    - removeItem(name) - removes a value
+    - clear() - removes all values
+
+## Promises
+- promise - allows the main rendering thread ro continue while some action is executed in the background
+- promise has three states
+    - pending - initial state
+    - fulfilled - action completed successfully
+    - rejected - action failed
+    - example
+    ```
+    const delay = (msg, wait) => {
+  setTimeout(() => {
+    console.log(msg, wait);
+  }, 1000 * wait);
+};
+
+new Promise((resolve, reject) => {
+  // Code executing in the promise
+  for (let i = 0; i < 3; i++) {
+    delay('In promise', i);
+  }
+});
+
+// Code executing after the promise
+for (let i = 0; i < 3; i++) {
+  delay('After promise', i);
+}
+
+// OUTPUT:
+//   In promise 0
+//   After promise 0
+//   In promise 1
+//   After promise 1
+//   In promise 2
+//   After promise 2
+```
+- resolve - sets to fufilled state
+- reject - sets to rejected state
+``` 
+const coinToss = new Promise((resolve, reject) => {
+  const value = Math.random();
+  if (value > 0.5) {
+    resolve('heads');
+  } else {
+    reject('tails');
+  }
+});
+- then - executes when the promise is resolved
+- catch - executes when the promise is rejected
+- finally - executes when the promise is completed
+```
+coinToss
+  .then((result) => console.log(result))
+  .catch((result) => console.log(result))
+  .finally(() => console.log('done'));
+```
+
+## Async and Await
+- JavaScript Promise objects are great for asynchronous execution, but as developers began to build large systems with promises they started wanting a more concise representation. This was provided with the introduction of the async/await syntax. The await keyword wraps the execution of a promise and removed the need to chain functions. The await expression will block until the promise state moves to fulfilled, or throws an exception if the state moves to rejected. For example, if we have a function that returns a coin toss promise.
+```
+const coinToss = () => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      if (Math.random() > 0.1) {
+        resolve(Math.random() > 0.5 ? 'heads' : 'tails');
+      } else {
+        reject('fell off table');
+      }
+    }, 1000);
+  });
+};
+```
+```
+try {
+  const result = await coinToss();
+  console.log(`Toss result ${result}`);
+} catch (err) {
+  console.error(`Error: ${err}`);
+} finally {
+  console.log(`Toss completed`);
+}
+```
+
+- async - function that returns a promise
+    - async function tossCoin() {
+        return await coinToss();
+    }
+- await - cannot call unles it is at the tope level of JS or in a async function
+    - wraps a call to the async function
+    - blocks execution until the promise is resolved
+    - return the reulst of the promise
+- can use this to resovle two pormises at the same time
+    - const [result1, result2] = await Promise.all([coinToss(), coinToss()]);
