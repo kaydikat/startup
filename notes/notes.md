@@ -419,25 +419,32 @@ For example, you can list the files in a directory, pipe it into grep to search 
 ## Media Html elements
 - all media tags take in URK
 - images
+```
     - <img alt="mountain landscape" src="https://images.pexels.com/photos/164170/pexels-photo-164170.jpeg" />
+```
 - audio
+```
     - <audio controls src="testAudio.mp3"></audio>
+```
 - video
+```
     - <video controls width="300" crossorigin="anonymous">
   <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" />
-</video>
+    </video>
     - <h2>Video</h2>
-<video controls width="300"> <source src="https://youtu.be/JPDyWioYptY?list=LL" />
+    <video controls width="300"> <source src="https://youtu.be/JPDyWioYptY?list=LL" />
+```
 - svg - scalable vector graphics
 ```
     <svg width="100" height="100">
   circle cx="50" cy="50" r="40" stroke="black" stroke-width="3" fill="red" >
-
 </svg>
 ```
 - canvas - drawing
+```
     - <canvas id="canvas" width="200" height="100"></canvas>
-    
+```
+
 ## CSS
 - CSS - Cascading Style Sheets
 - rule - selector and declaration block
