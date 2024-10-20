@@ -3352,3 +3352,78 @@ Port 443, 80, 22 is reserved for which protocol?
 What will the following code using Promises output when executed?
 
 Without seeing the code, promises usually resolve or reject asynchronously, logging the corresponding result based on resolution or rejection.
+
+## kahoot
+```
+const f = y => ++y;
+console.log(f(3))
+```
+- outpus 4
+
+- flex column revers will make the first line say world and the second say hello
+- import css fonts from google using @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+```
+let a = ['cow', 'rat', 'fish'];
+leb b = a.filter(v => v.match(/A|f/i));
+console.log(b);
+```
+- /A/f/i - looks for a or f and makes it case insensitice
+- filter - makes so it contains only the elemennts of a that with these
+- outputs ['rat', 'fish']
+
+- document.querySelector('p').addEventListener('mouseover', console.log); 
+    - adds a mouseover event listerner to a p elements
+- valid javascrpit in html
+    - <script>1</script>
+    - <div onclick>
+- {n:1} is valid js object
+- `<a href="https://>s</a>` is valid hyperlink while <link> is not
+
+- not valid JSON  
+    - {'x':3}
+    - {"x":undefined}
+    - {x:3}
+- valid JSON - {"X":3}
+- chmod +x deploy.sh - makes script exectuable
+
+```
+const p = new Promise((resolve, reject) => {
+    setTimeout(() = > {
+        console.log('taco');
+        resolve(true);
+    }, 1000);
+});
+console.log('burgue');
+
+p
+.then((result) => console.log('shake'))
+.cathc((e) => console.log('salad'))
+.finally(() => console.log('noodles'))
+
+console.log('fries');
+```
+- output is burgue, fries, taco, shake, noodles
+- Deploy to your production environment using the deployFiles.sh script found in the example class application. Take some time to understand how the script works. The script does three things. Deletes any previous deployment for simon, copies up all of the files found in the project directory, and makes sure Caddy is hosting the files under the simon subdomain of your domain (e.g. simon.yourdomain.click).
+- /deployFiles.sh -k <yourpemkey> -h <yourdomain> -s simon
+
+## Regex Cheat Sheet
+- `.` - any character except newline
+- `\d` - digit (0-9)
+- `\D` - not a digit
+- `\w` - word character (a-z, A-Z, 0-9, _)
+- `\W` - not a word character
+- `\s` - whitespace (space, tab, newline)
+- `\S` - not whitespace
+- `\b` - word boundary
+- `\B` - not a word boundary
+- `^` - beginning of a string
+- `$` - end of a string
+- `[]` - matches characters in brackets
+- `[^ ]` - matches characters not in brackets
+- `|` - either or
+- `()` - group
+- `*` - 0 or more
+- `+` - 1 or more
+- `?` - 0 or 1
+- `{3}` - exact number
+- `{3,4}` - range of numbers (minimum, maximum)
