@@ -748,3 +748,213 @@ his point is that they could have terminate it all; there are 4 sigshilds sent t
 - ./a.out | grep FOO - just XYZ will be outputed
 - bash will do redirection of the pipe first
 - ./a.out s>&1 | grep X - redirects both stderr and stout to pipe
+
+# Sockets
+application constains
+- server and one or more client processes
+- server - manages a resources
+- transaction - client sends a request to the server and the server sends a response to the client
+    1. cliet sends request to server when it needs something
+        - web browser needs a file
+    2. server receives and interprets request
+        - web server receives reqenst and reads disk
+    3. server sends response to client
+        - web server sends file to web browser(client)
+- clients and server are not hosts
+- host - runs multipel clients and servers concurrently
+- computer network - collection of hosts that are connected by a communication 
+- hub - connects hosts
+- bridge - connects networks
+- lan - local area network
+- wan - wide area network
+- internet - collection of networks
+- host addresses are assigned to internet addresses
+- deliverym echanistm - packets
+
+1. The client. 011 host t-invo,kes a system c~ll that copies the data from the client's 
+virtual address space intp a kernel buffer. 
+2. The protocol software on host A creates a l:ANl frame by appending an 
+internet heaaef'.and a·LANl frame l\eadento the data. The internet header 
+is addressed to internet host B. The LANl frame header is addressed to the 
+router. It then passes the frame to the adapter. Notice that the.payload ofthe 
+LANl frame is an internet packet, whose payload.is the actual user data. This 
+kind of encapsulation is one of the fundamental insights of internetworking. 
+- adresses are assigned in big-endian netwrok byte order
+- htonl - converts a 32-bit integer from host byte order to network byte order
+- ntohl - converts a 32-bit integer from network byte order to host byte order
+
+- soket interface - set of functiontions that build network applications
+- socket function - creates socket descriptor   
+    - int socket(int domain, int type, int protocol)
+- connect - connects a socket to a server
+    - int connect(int sockfd, const struct sockaddr *addr, socklen_t addrlen)
+- bind - assigns an address to a socket
+    - int bind(int sockfd, const struct sockaddr *addr, socklen_t addrlen)
+- listen - listens for connections on a socket
+    - int listen(int sockfd, int backlog)
+- accept - accepts a connection on a socket
+    - int accept(int sockfd, struct sockaddr *addr, socklen_t *addrlen)
+- listening descriptor - socket that listens for connections
+    - last for lifetime of server
+- connected descriptor - socket that is connected to a server
+    - lasts for lifetime of connection
+- getaddrinfo - gets address information
+    - int getaddrinfo(const char *node, const char *service, const struct addrinfo *hints, struct addrinfo **res)
+- getnameinfo - gets name information
+    - int getnameinfo(const struct sockaddr *sa, socklen_t salen, char *host, size_t hostlen, char *serv, size_t servlen, int flags)
+- send - sends data on a connected socket
+    - ssize_t send(int sockfd, const void *buf, size_t len, int flags)
+        - example
+            - send(sockfd, "Hello, world!", 13, 0)
+## UDP
+- udp - user datagram protocol
+- connectionless
+    - can have con receive from call that reads from exactly one datagram
+    - send()/sendto()/write() - sends exactly one datagram
+    - recv()/recvfrom()/read() - reads from exactly one datagram
+- no stroing
+- unreliable - can send a datagram at a time and only receive a datagram at a time
+    - this means that the datagram can be lost
+    - read(2) abc it reads ab and c is forgotten
+    - if asked to read(2) again is will read de from def from the next packet
+- exam 2 look at slides for socket-client server
+- TCP - transmission control protocol
+    - connection protocol
+        - connect is different than UDP
+        - read(5) will read 5 bytes from abcde from the packets abc and def and f will be stored in the buffer
+        - server combines the sendto when they're sent together while in udp you would be sending a datagram and they'll be sent separately
+- Exam review
+    - udp
+        - if it's udp nread1 would be 5, with the last 5 of nwritten1 being lost
+        - nread2 sould read all of up to the 10 of nwritten2
+        - recv(100) would just be a blocking call
+    - TCP
+        - nread1 will be the first 5 of nwritten1
+        - nread2 will read the last 5 of nwritten1 and first 10 if nwritten2
+    - udp doesn't know the order of A and B
+
+# Midterm 1 Mistakes
+- Missed Questions: 6-A, 9-A, 17-H, 18-G, 22-D, 24-B, 25-B, 28-C, 29-D, 32-A, 33-A, 39-B-D, 46-B, 47-A
+
+- 6 - B - False 
+    - Question: If a parent process terminates without reaping its zombie children, then they will consume system resources until the system is rebooted 
+    - Explanation: Since the parent terminates, that means so zombie children are reaped by the init process and the resources are therefore not consumed
+- 9 - B - False
+    - Question: After a signal handler runs to competion with no errors, the process that received the siganl will always resume execution at the current or next instruction in the user code according to where it was executing before the signal handler was called
+    - Explanation: When the signal handler ends it can go back to the signal handler that was interrupted. Meaning it does not always resume at the current or next instruction in the user code.
+- 17 - C - **Appeal**
+    - Questions: How many different outputs are feasible?
+    - Explanation: For the test, I picked from the list of answers used by 18 an 19. My answer for 17 was H because C and F were on that list. However, in my proccess table on my scratch paper, I showed that the possible outputs are 243, 423, and 432
+- 18 - H
+    - Question: Which are among the possible outputs?
+    - Explanation: I picked G because 24 and 42 in that order are in the possible outputs of 243, 423, and 432. Since I had already picked H for 17, I figured that this question must have been different and it was just asking what order of numbers were inside the possible outputs.
+- 22 - B 
+    - Question: Which is answer is not true?
+    - Explanation: Val DOES change. Whenever execve returns an error it returns -1, meaning that val changed.
+- 24 - C
+    - Question: When does the kernal perform the "pending and not blocked" calculation
+    - Explanation: When the claculation is done and it's not zero, it will be received. Every time a process is being scheduled to run that calculation is done.
+- 25 - A - **Appeal**
+    - Question: When is a SIGCHLD signal sent?
+    - Explanation: There was big fat B right next to the question so I thought that was the answer. But anyways, B couldn't be true because the SIGCHLD exists even if you don't install a handler for it. The true answer is A because every process has a parent, meaning, every time a process terminates it send a SIGCHLD signal.
+28-C, 29-D, 32-A, 33-A, 39-B-D, 46-B, 47-A
+
+- 28 - A - The child and parent are both running
+    - Question: What is are the proccesses like at t = 25?
+    - Explanation:
+- 29 - A - The child and parent are both running
+    - Question: What is are the proccesses like at t = 25?
+    - Explanation: The child and parent are both running
+
+- 39 - B
+    - Question: Where should close(pipefd[0]) be placed in the code?
+    - Explanation: B and D were right but I forgot to also close the read end of the pipe in the parent. 
+
+- 46 - G - 32
+    - Question: What does the terminal print out? Insert no code
+    - Explanation: Sigchld signal is received because the child process terminated so "3" is sent to the terminal. The 2 is printed because the child process exited normally. Since sleep(2) in the parent is shorter than the child’s sleep(4), the child process will still be running when waitpid is called. Therefore, waitpid returns 0 (indicating the child has not yet exited), and the parent skips the if block that prints the exit status.
+
+- 47 - C - 3
+    - Question: What does the terminal print out? Insert sleep(4) in section 1.
+    - Explanation: The child process terminates and sends a SIGCHLD signal to the parent.
+
+
+
+```
+28
+1. pid_t pid;
+2. void sigint_handler(int signum) {
+3.      int status;
+4.      sigset_t mask, old_mask; // bit vector that’s as big as the pending and bit arrays
+5.      if (pid > 0) {
+6.              sleep(10);
+7.              kill(pid, SIGTERM);
+8.              sleep(10);
+9.              if (waitpid(pid, &status, 0) > 0) {
+10.                     sleep(20);
+11.             }
+12.    
+13.             else {
+14.                 kill(pid, SIGKILL);
+15.                 sleep(10);
+19.             }
+20.     }       exit(0);
+20. } else { //child
+    sleep(20);
+    exit(0);
+}
+21. int main() {
+22.     struct sigaction sigact;
+23.     memset(&sigact, 0, sizeof(sigact)); //initializes everything to 0
+24.     sigact.sa_handler = sigint_handler;
+25.     sigact.sa_flags = SA_RESTART;
+26.     sigaction(SIGINT, &sigact, NULL); //install SIGINT handler
+        sigaction(SIGTERM, &sigact, NULL); //install SIGTERM handler
+27.     pid = fork();
+28.     while (1) { sleep(1); }
+29.     return 0;
+30. }
+```
+
+```
+46
+    void sogchld_handler(int signum) {
+        printf("3");
+    }
+    int main () {
+        pid_t pid;
+        int status;
+        struct sigaction sigact;
+        siact.sa_flags = 0;
+        sigact.sa_handler = sigchld_handler;
+        sigaction(SIGCHLD, &sigact, NULL);
+        if ((pid = fork()) == 0) {
+            // SECTION 1 CODE
+            exit(0);
+        }
+        sleep(2);
+        // SECTION 2 CODE
+        if (waitpid(pid, &status, WNOHANG) > 0) {
+            if (WIFEXITED(status)) {
+                printf("%d", WEXITSTATUS(status));
+            } else {
+                printf("1", WEXITSTATUS(status));
+            }
+        }
+        for (int i = 0; i < 10; i++) {
+            printf("1");
+        }
+    }
+```
+
+```
+17
+int main()
+{
+    int x = 3, pid;
+    if (fork() > 0) {
+        printf("%d", ++x);
+    }
+    printf("%d, --x);
+}
+```
