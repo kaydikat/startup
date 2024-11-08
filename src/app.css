@@ -42,7 +42,11 @@ html, .body {
     margin: 0;
   }
 
-footer {
+  footer {
+    /* move the footer to the bottom of the page */
+    position: fixed;
+    bottom: 0;
+    width: 100%;
     flex-shrink: 0;
     text-align: center;
     padding: 10px;
