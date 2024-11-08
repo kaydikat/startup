@@ -3427,3 +3427,13 @@ console.log('fries');
 - `?` - 0 or 1
 - `{3}` - exact number
 - `{3,4}` - range of numbers (minimum, maximum)
+
+- Install and configure Vite
+- Reorganize the code
+- Convert to React Bootstrap
+- Enable React
+- Create app component
+- Create view components
+- Create the router
+- Convert HTML to React components
+- Replace deployment script

@@ -1,4 +1,4 @@
-Lecture 2
+# Lecture 2
 
 debug - might set env variable to debug so you don't need a new parameter
 main program in c
@@ -958,3 +958,60 @@ int main()
     printf("%d, --x);
 }
 ```
+# Threads
+iteratice servers
+- server that can't really accept multiple concurrent flows at the same time
+
+concurrent servers
+- process-based servers
+    - it spawns separate process for each client
+    - makes a new child using fork
+    - child will close listenfd because it's not foing to call accept so listenfd soesn't need a ref of 2
+    - exit will make the child coofd clse but parent does need to slose the connfd
+    - if several sigchild signals are sent we might lose one so we need the while loop or else we might lose some
+- event-based servers
+    - you go and handle them in a single thread using epoll
+    - write so you never have a blocking call
+- thread-based servers
+    - similar to proccess-based but uses threads
+    - each thread has its own stack and id
+    - threads don't hace a heiarcarchy
+    - share the same code and program
+    - threads can be concurrent
+    - int connfd = *((int *)vargp); - will cast the void pointer to an int pointer and then dereference it
+        - this means that the void pointer is a pointer to an int
+    - issues
+        - must run detached to avoid memory leak
+        - either joinable or detached
+        - be caful with unintended sharing - if you create a thread and apss an address of some local variable, you have a pointer into the main threads stack space
+            - dangerous because some other function can take up that stack space in the main thread
+            - for the most part threads are more efficient than processes but we sometimes use processes because they're safer and you don't need speed when typing into a shell
+
+- semaphone - non-negative global integer sychronization variable. Manipulated by P and V operations
+    - if P is zero the thread is going to stop
+    - semaphore is always greater than or equal to 0
+    - P - wait - void P(sem_t *sem) - one that can blcok
+    - V - post - void V(sem_t *sem) - one that can unblock
+    - any part of the code that is using a shared variable from multiple threads we need to protect it with a semaphore
+    - surround critical section with p and v
+    - it's orders of magnitude
+    - let's one thread at a time into the critical section
+    - mutex will be set to one 1 and if it's in a critical section it will go to 0
+        - has to be global in order to be used on multiple threads
+        - nonnegative integer
+        - usually uses 1 or 0 to say if it's in critical section or not
+        - mutex is a binary semaphore
+    - understand initializing of semaphores
+        - sem_init(&sp->mutex, 0, 1) - will initialize the mutex semaphore to 1
+        - sem_init(&sp->slots, 0, n) 
+        - sem_init(&sp->items, 0, 0)
+        - when you call p operations thaen it wlil check ifi tis nonzero and it will decrement n in slots
+            - P(slots)
+            - when nth call is 0 the buffer will have n items and it will block
+            - if buffer becomes then P(slots) will block
+        - V(slots) will increment the number of slots
+            - can be called in a whole different function
+        - if items = 0 the P(items) will block it because it is 0
+            - will wait for V(items) to be done cause that increments items
+        - p is only producgin n amount of htings at maz
+        - p(items) - if items is 0 you are blocking consumer
