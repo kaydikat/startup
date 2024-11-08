@@ -13,7 +13,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "give-me-a-joke": "^0.5.1"
+    "bootstrap": "^5.3.3",
+    "give-me-a-joke": "^0.5.1",
+    "react-bootstrap": "^2.10.5"
   },
   "devDependencies": {
     "vite": "^5.4.10"
