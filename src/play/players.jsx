@@ -7,7 +7,6 @@ export function Players(props) {
 
   const [events, setEvent] = useState([]);
 
-  // Memoize handleGameEvent to keep the same reference
   const handleGameEvent = useCallback((event) => {
     setEvent((prevEvents) => {
       let newEvents = [event, ...prevEvents];
@@ -24,7 +23,7 @@ export function Players(props) {
     return () => {
       GameNotifier.removeHandler(handleGameEvent);
     };
-  }, [handleGameEvent]); // Include handleGameEvent in dependency array
+  }, [handleGameEvent]);
 
   function createMessageArray() {
     return events.map((event, i) => {
