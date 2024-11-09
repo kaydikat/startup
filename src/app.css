@@ -43,15 +43,14 @@ html, .body {
   }
 
   footer {
-    /* move the footer to the bottom of the page */
     position: fixed;
     bottom: 0;
-    width: 100%;
-    flex-shrink: 0;
     text-align: center;
     padding: 10px;
     background-color: #f8f8f8;
-}
+    width: 100%;
+    flex-shrink: 0; /* Prevents footer from shrinking */
+  }
 
 /* Mobile layout: hides left-side and reduces title size */
 @media (max-width: 600px) {
