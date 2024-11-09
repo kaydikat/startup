@@ -28,6 +28,7 @@ export default function App() {
           </Navbar>
   
           <Routes>
+            <Route path="/" element={<Login />} exact />
             <Route path='/login' element={<Login />} exact />
             <Route path='/play' element={<Play />} />
             <Route path='/scoreboard' element={<Scoreboard />} />
