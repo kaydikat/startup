@@ -1,5 +1,4 @@
 import React from 'react';
-import { Navbar, Nav, Container } from 'react-bootstrap';
 import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom';
 import { Login } from './login/login';
 import { Play } from './play/play';
@@ -7,6 +6,7 @@ import { Scoreboard } from './scoreboard/scoreboard';
 import { AuthState } from './login/authState';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './app.css';
+import { Navbar, Nav, Container } from 'react-bootstrap';
 
 export default function App() {
     const [userName, setUserName] = React.useState(localStorage.getItem('userName') || '');
@@ -21,28 +21,51 @@ export default function App() {
               <Navbar.Brand href="/login">
                 <h2>Temple Guesser</h2>
               </Navbar.Brand>
-              <Navbar.Toggle aria-controls="navbarSupportedContent" />
-              <Navbar.Collapse id="navbarSupportedContent">
-                <Nav className="me-auto">
-                  <NavLink className='nav-link' to='/login'>Login</NavLink>
-
-                  {authState === AuthState.Authenticated && (
-                  <NavLink className='nav-link' to='/play'>Play</NavLink>
-                    )}
-
-                    {authState === AuthState.Authenticated && (
-                  <NavLink className='nav-link' to='/scoreboard'>Scoreboard</NavLink>
-                    )}
-                    
-                </Nav>
-              </Navbar.Collapse>
+              {authState === AuthState.Authenticated && (
+                <Navbar.Toggle aria-controls="navbarSupportedContent" />
+                )}
+              {authState === AuthState.Authenticated && (
+                <Navbar.Collapse id="navbarSupportedContent">
+                  <Nav className="me-auto">
+                    <NavLink className='nav-link' to='/login'>Login</NavLink>
+                    <NavLink className='nav-link' to='/play'>Play</NavLink>
+                    <NavLink className='nav-link' to='/scoreboard'>Scoreboard</NavLink>
+                  </Nav>
+                </Navbar.Collapse>
+                )}
             </Container>
           </Navbar>
   
-          <Routes>
-            <Route path="/" element={<Login />} exact />
-            <Route path='/login' element={<Login />} exact />
-            <Route path='/play' element={<Play />} />
+        <Routes>
+          <Route
+            path='/'
+            element={
+              <Login
+                userName={userName}
+                authState={authState}
+                onAuthChange={(userName, authState) => {
+                  setAuthState(authState);
+                  setUserName(userName);
+                }}
+              />
+            }
+            exact
+          />
+          <Route
+            path='/login'
+            element={
+              <Login
+                userName={userName}
+                authState={authState}
+                onAuthChange={(userName, authState) => {
+                  setAuthState(authState);
+                  setUserName(userName);
+                }}
+              />
+            }
+            exact
+          />
+            <Route path='/play' element={<Play userName={userName} />} />
             <Route path='/scoreboard' element={<Scoreboard />} />
             <Route path='*' element={<NotFound />} />
           </Routes>

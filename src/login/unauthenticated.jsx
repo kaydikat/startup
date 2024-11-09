@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { useNavigate } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import { MessageDialog } from './messageDialog';
 
@@ -7,15 +7,18 @@ export function Unauthenticated(props) {
   const [userName, setUserName] = React.useState(props.userName);
   const [password, setPassword] = React.useState('');
   const [displayError, setDisplayError] = React.useState(null);
+  const navigate = useNavigate();
 
   async function loginUser() {
     localStorage.setItem('userName', userName);
     props.onLogin(userName);
+    navigate('/play');
   }
 
   async function createUser() {
     localStorage.setItem('userName', userName);
     props.onLogin(userName);
+    navigate('/play');
   }
 
   return (
