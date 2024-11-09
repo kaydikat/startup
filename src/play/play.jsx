@@ -1,19 +1,15 @@
 import React from 'react';
 import './play.css';
 
-export function Play() {
+import { Players } from './players';
+
+export function Play(props) {
   return (
     <main className="container-fluid">
       <div className="row">
         <aside className="col-md-2 sidebar">
             <div className="players">
-              Player
-              <span className="player-name">Mystery player</span>
-              <div id="player-messages">
-                <div className="event"><span className="player-event">Linus</span> scored 377</div>
-                <div className="event"><span className="player-event">Linus</span> started a new game</div>
-                <div className="event"><span className="system-event">game</span> connected</div>
-              </div>
+              <Players userName={props.userName} />
             </div>
         </aside>
         <section className="col-md-10">
