@@ -25,7 +25,8 @@ export function Login({ userName, authState, onAuthChange }) {
           
           <div className="col-6 right-side d-flex flex-column justify-content-center align-items-center">
             <div>
-              {authState !== AuthState.Unknown && <h1>Login or Sign Up</h1>}
+            {authState === AuthState.Unauthenticated && <h1>Login or Sign Up</h1>}
+            {authState === AuthState.Authenticated && <h1>Welcome</h1>}
               {authState === AuthState.Authenticated && (
                 <Authenticated userName={userName} onLogout={() => onAuthChange(userName, AuthState.Unauthenticated)} />
               )}
