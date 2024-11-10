@@ -46,6 +46,16 @@ This game is a fun way to test your geography skills. You will be given the name
 - **Application Elements** - Used good contrast and whitespace.
 - **Text Content** - Used consistent Bootstrap text fonts throughout. Headers and titles are properly sized to match importance.
 - **Images** - Created picture box that holds temple picture and used CSS to make so it stays within the bounds of the left side of the screen. Also made so the bottom gets cut off when the screen becomes smaller.
+
+## React Deliverable ##
+- **Vite** - Bundled code with Vite and it can now be run with npm run dev.
+- **React Components** - Created components for login, play, and scoreboard.
+    - **Login** - Made button components for login and create. Used state to keep track of email and password.
+    - **Play** - Implemented players component that makes a mock up of players getting updated in real time. Used state to keep track of score and temple data. Made map component that makes updates mock score and guess error. Will use actual coordinates once I can use google maps API.
+    - **Scoreboard** - Made scoreboard component that makes a mock up of the scoreboard. Used state to keep track of scores.
+- **React Router** - Used React Router to navigate between login, play, and scoreboard pages.
+- **React Hooks** - Used useState to keep track of email, password, score, and temple data. Used useEffect to update temple data and scores.
+
 ## Design ##
 ![Login page](./pictures/IMG_7717.jpg)
 ![Post-login page](./pictures/IMG_7718.jpg)
