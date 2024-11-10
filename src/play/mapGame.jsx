@@ -9,4 +9,25 @@ export function MapGame() {
     const [gameOver, setGameOver] = useState(false);
 
     const currentTemple = templeData[currentTempleIndex];
+
+    const nextTemple = () => {
+        if (templeNumber < 5) {
+            setTempleNumber(templeNumber + 1);
+            setCurrentTempleIndex((currentTempleIndex + 1) % templeData.length);
+        } else {
+            setGameOver(true);
+        }
+    }
+
+    const handleMapClick = (event) => {
+        const fakeScore = Math.floor(Math.random() * 1000);
+        const fakeGuess = Math.floor(Math.random() * 1000);
+
+        setTotalScore(totalScore + fakeScore);
+        setGuessError(guessError + fakeGuess);
+
+        setTimeout(() => {
+            nextTemple();
+        }, 1000);
+    }
 }
