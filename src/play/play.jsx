@@ -16,7 +16,6 @@ export function Play(props) {
         <section className="col-md-10">
           <div className="text-center"> 
             <RandomTemple />
-            {/* <h2>Temple #<span id="temple-number">2</span>: <span id="temple-name">Salt Lake Temple</span></h2> */}
           </div>
           <div className="map-container">
             <div className="score-box">
