@@ -26,9 +26,7 @@ export function MapGame() {
         setTotalScore(totalScore + fakeScore);
         setGuessError(guessError + fakeGuess);
 
-        setTimeout(() => {
-            nextTemple();
-        }, 1000);
+        nextTemple();
     }
 
     if (gameOver) {

@@ -8,14 +8,39 @@ body {
     height: calc(100vh - 56px); /* Adjust for navbar height */
     overflow-y: auto;
   }
-  .map-container {
-    position: relative;
-    text-align: center;
-  }
-  .map-container img {
-    width: 100%;
-    height: auto;
-  }
+/* play.css */
+
+.map-game {
+  text-align: center;
+}
+
+.map-container {
+  position: relative;
+  margin: 20px auto;
+  max-width: 800px;
+}
+
+.map-container img {
+  width: 100%;
+  height: auto;
+  cursor: pointer;
+}
+
+.score-info {
+  margin-top: 20px;
+  font-size: 1.2em;
+}
+
+.game-over {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.game-over button {
+  padding: 10px 20px;
+  font-size: 1em;
+}
+
   .score-box, .guess-error-box {
     position: absolute;
     background-color: rgba(255, 255, 255, 0.8);
