@@ -30,11 +30,9 @@ export function MapGame(props) {
             scores.push(scoreData);
             localStorage.setItem('scores', JSON.stringify(scores));
         
-            // Broadcast game end event
             GameNotifier.broadcastEvent(userName, GameEvent.End, scoreData);
           }
-        };
-    }
+    };
 
     const handleMapClick = (event) => {
         const fakeScore = Math.floor(Math.random() * 1000);
@@ -46,6 +44,14 @@ export function MapGame(props) {
         nextTemple();
     }
 
+    const resetGame = () => {
+      setCurrentTempleIndex(0);
+      setTempleNumber(1);
+      setTotalScore(0);
+      setGuessError(0);
+      setGameOver(false);
+    };
+    
     if (gameOver) {
       return (
         <div className="game-over">

@@ -15,17 +15,17 @@ export function Scoreboard() {
 
   // Demonstrates rendering an array with React
   const scoreRows = [];
-  if (scores.length) {
-    for (const [i, score] of scores.entries()) {
+  if (scores && scores.length > 0) {
+    scores.forEach((score, i) => {
       scoreRows.push(
         <tr key={i}>
-          <td>{i}</td>
-          <td>{score.name.split('@')[0]}</td>
-          <td>{score.score}</td>
-          <td>{score.date}</td>
+          <td>{i + 1}</td>
+          <td>{score.name ? score.name.split('@')[0] : 'Unknown'}</td>
+          <td>{score.score || 0}</td>
+          <td>{score.date || 'Unknown'}</td>
         </tr>
       );
-    }
+    });
   } else {
     scoreRows.push(
       <tr key='0'>
