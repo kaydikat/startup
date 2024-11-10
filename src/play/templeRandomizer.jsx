@@ -1,21 +1,24 @@
-import templeData from './public/temples.json'
 import React, { useState, useEffect } from 'react';
+import templeData from '../data/temples.json';
 
-function RandomTemple() {
+export function RandomTemple() {
   const [templeName, setTempleName] = useState('');
+  let counter = 1;
 
   useEffect(() => {
-    const randomIndex = Math.floor(Math.random() * templeData.length);
-    const temple = templeData[randomIndex];
-    setTempleName(temple.Temple);
+    // Ensure that templeData is an array
+    if (Array.isArray(templeData) && templeData.length > 0) {
+      const randomIndex = Math.floor(Math.random() * templeData.length);
+      const temple = templeData[randomIndex];
+      setTempleName(temple.Temple);
+    } else {
+      console.error('Temple data is not an array or is empty.');
+    }
   }, []);
 
   return (
     <div>
-      <h2>Random Temple</h2>
-      <h3>{temple.Temple}</h3>
+      <h3>{templeName || 'No temple available'}</h3>
     </div>
   );
 }
-
-export default RandomTemple;

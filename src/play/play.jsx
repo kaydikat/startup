@@ -2,6 +2,7 @@ import React from 'react';
 import './play.css';
 
 import { Players } from './players';
+import { RandomTemple } from './templeRandomizer';
 
 export function Play(props) {
   return (
@@ -14,7 +15,8 @@ export function Play(props) {
         </aside>
         <section className="col-md-10">
           <div className="text-center"> 
-            <h2>Temple #<span id="temple-number">2</span>: <span id="temple-name">Salt Lake Temple</span></h2>
+            <RandomTemple />
+            {/* <h2>Temple #<span id="temple-number">2</span>: <span id="temple-name">Salt Lake Temple</span></h2> */}
           </div>
           <div className="map-container">
             <div className="score-box">

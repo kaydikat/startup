@@ -17,7 +17,6 @@ const GameEvent = {
     handlers = [];
   
     constructor() {
-      // Simulate chat messages that will eventually come over WebSocket
       setInterval(() => {
         const score = Math.floor(Math.random() * 3000);
         const date = new Date().toLocaleDateString();
@@ -36,14 +35,14 @@ const GameEvent = {
     }
   
     removeHandler(handler) {
-      this.handlers = this.handlers.filter((h) => h !== handler); // Reassigned the filtered array
+      this.handlers = this.handlers.filter((h) => h !== handler);
     }
   
     receiveEvent(event) {
       this.events.push(event);
   
       this.handlers.forEach((handler) => {
-        handler(event); // Call each handler with the new event only
+        handler(event);
       });
     }
   }
