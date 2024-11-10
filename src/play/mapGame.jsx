@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import templeData from '../data/temples.json';
+import { GameNotifier, GameEvent } from './gameNotifier';
 
-export function MapGame() {
+export function MapGame(props) {
     const [currentTempleIndex, setCurrentTempleIndex] = useState(0);
     const [templeNumber, setTempleNumber] = useState(1);
     const [totalScore, setTotalScore] = useState(0);
     const [guessError, setGuessError] = useState(0);
     const [gameOver, setGameOver] = useState(false);
 
+    const userName = props.userName;
     const currentTemple = templeData[currentTempleIndex];
 
     const nextTemple = () => {
@@ -16,7 +18,22 @@ export function MapGame() {
             setCurrentTempleIndex((currentTempleIndex + 1) % templeData.length);
         } else {
             setGameOver(true);
-        }
+
+            const scoreData = {
+              name: userName,
+              score: totalScore,
+              date: new Date().toLocaleDateString(),
+            };
+        
+            const scoresText = localStorage.getItem('scores');
+            const scores = scoresText ? JSON.parse(scoresText) : [];
+            scores.push(scoreData);
+            localStorage.setItem('scores', JSON.stringify(scores));
+        
+            // Broadcast game end event
+            GameNotifier.broadcastEvent(userName, GameEvent.End, scoreData);
+          }
+        };
     }
 
     const handleMapClick = (event) => {
@@ -26,17 +43,17 @@ export function MapGame() {
         setTotalScore(totalScore + fakeScore);
         setGuessError(guessError + fakeGuess);
 
-        setTimeout(() => {
-            nextTemple();
-        }, 1000);
+        nextTemple();
     }
 
     if (gameOver) {
-        return (
-            <div className = "game-over" >
-                <button onClick={() => window.location.reload()}>Play Again</button>
-            </div>
-        )
+      return (
+        <div className="game-over">
+          <h2>Game Over</h2>
+          <p>Your total score is: {totalScore}</p>
+          <button onClick={resetGame}>Play Again</button>
+        </div>
+      );
     }
 
     return (

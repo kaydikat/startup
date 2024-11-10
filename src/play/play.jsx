@@ -2,7 +2,6 @@ import React from 'react';
 import './play.css';
 
 import { Players } from './players';
-import { RandomTemple } from './templeRandomizer';
 import { MapGame } from './mapGame';
 
 export function Play(props) {
@@ -16,7 +15,7 @@ export function Play(props) {
         </aside>
         <section className="col-md-10">
           <div className="text-center"> 
-            <MapGame />
+            <MapGame userName={props.userName} />
           </div>
         </section>
       </div>
