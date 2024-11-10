@@ -3,6 +3,7 @@ import './play.css';
 
 import { Players } from './players';
 import { RandomTemple } from './templeRandomizer';
+import { MapGame } from './mapGame';
 
 export function Play(props) {
   return (
@@ -16,8 +17,9 @@ export function Play(props) {
         <section className="col-md-10">
           <div className="text-center"> 
             <RandomTemple />
+            <MapGame />
           </div>
-          <div className="map-container">
+          {/* <div className="map-container">
             <div className="score-box">
               <label for="score">Score</label>
               <input type="number" id="score" value="0" readonly className="form-control" />
@@ -27,7 +29,7 @@ export function Play(props) {
               <input type="number" id="count" value="0" readonly className="form-control" />
             </div>
             <img src="world_map.png" alt="World Map" />
-          </div>
+          </div> */}
         </section>
       </div>
     </main>

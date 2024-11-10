@@ -30,4 +30,31 @@ export function MapGame() {
             nextTemple();
         }, 1000);
     }
-}
+
+    if (gameOver) {
+        return (
+            <div className = "game-over" >
+                <button onClick={() => window.location.reload()}>Play Again</button>
+            </div>
+        )
+    }
+
+    return (
+        <div className="map-game">
+          <h2>
+            Temple {templeNumber} of 5: {currentTemple ? currentTemple.Temple : 'Unknown Temple'}
+          </h2>
+          <div className="map-container" onClick={handleMapClick}>
+            <img
+              src="world_map.png"
+              alt="World Map"
+              style={{ width: '100%', cursor: 'pointer' }}
+            />
+          </div>
+          <div className="score-info">
+            <p>Total Score: {totalScore}</p>
+            <p>Guess Error: {guessError}</p>
+          </div>
+        </div>
+      );
+    }
