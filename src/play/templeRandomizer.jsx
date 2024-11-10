@@ -3,7 +3,7 @@ import templeData from '../data/temples.json';
 
 export function RandomTemple() {
   const [templeName, setTempleName] = useState('');
-  let counter = 1;
+  const [count, setCount] = useState(0);
 
   useEffect(() => {
     // Ensure that templeData is an array
@@ -11,6 +11,7 @@ export function RandomTemple() {
       const randomIndex = Math.floor(Math.random() * templeData.length);
       const temple = templeData[randomIndex];
       setTempleName(temple.Temple);
+      setCount(prevCount => prevCount + 1);
     } else {
       console.error('Temple data is not an array or is empty.');
     }
@@ -18,7 +19,7 @@ export function RandomTemple() {
 
   return (
     <div>
-      <h3>{templeName || 'No temple available'}</h3>
+      <h3>#{count} { templeName }</h3>
     </div>
   );
 }
