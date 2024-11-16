@@ -23,7 +23,12 @@ export function MyLocation() {
 
   
   return (
-    {region}, {city}, {latitude}, {longitude}
+     <div>
+      <p><strong>Region:</strong> {region}</p>
+      <p><strong>City:</strong> {city}</p>
+      <p><strong>Latitude:</strong> {latitude}</p>
+      <p><strong>Longitude:</strong> {longitude}</p>
+    </div>
   );
 }
 

@@ -81,7 +81,7 @@ export function MapGame(props) {
           </div>
           <div className="score-info">
             <p>Total Score: {totalScore}</p>
-            <p>Your Location: {</p>
+            <p>Your Location: </p>
             <p>Guess Error: {guessError}</p>
           </div>
         </div>

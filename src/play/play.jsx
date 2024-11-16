@@ -16,7 +16,7 @@ export function Play(props) {
         </aside>
         <section className="col-md-10">
           <div className="text-center"> 
-
+            <MyLocation />
             <MapGame userName={props.userName} />
           </div>
         </section>
