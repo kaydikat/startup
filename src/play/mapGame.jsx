@@ -19,20 +19,23 @@ export function MapGame(props) {
         } else {
             setGameOver(true);
 
-            const scoreData = {
-              name: userName,
-              score: totalScore,
-              date: new Date().toLocaleDateString(),
-            };
-        
-            const scoresText = localStorage.getItem('scores');
-            const scores = scoresText ? JSON.parse(scoresText) : [];
-            scores.push(scoreData);
-            localStorage.setItem('scores', JSON.stringify(scores));
-        
-            GameNotifier.broadcastEvent(userName, GameEvent.End, scoreData);
-          }
+            saveScore(totalScore);
+        }
     };
+
+    async function saveScore(score) {
+      const date = new Date().toLocaleDateString();
+      const newScore = { name: userName, score: score, date: date };
+    
+      await fetch('/api/score', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify(newScore),
+      });
+    
+      // Let other players know the game has concluded
+      GameNotifier.broadcastEvent(userName, GameEvent.End, newScore);
+    }
 
     const handleMapClick = (event) => {
         const fakeScore = Math.floor(Math.random() * 1000);
