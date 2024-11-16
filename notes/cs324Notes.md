@@ -1015,3 +1015,96 @@ concurrent servers
             - will wait for V(items) to be done cause that increments items
         - p is only producgin n amount of htings at maz
         - p(items) - if items is 0 you are blocking consumer
+        - binary sempphore - 01 - used to see if it's in the critical section
+        - counting semaphore - 0, 1, 2, 3 - used to see how many slots are available
+        - mutex has to be global variable
+        - memorixe textbook description of semaphores
+        - what kind of values can be held in counting semaphores? 
+            - a nonnegative integer
+        - when we set items to be 0 to control consumers because want to call te p operation on items in the consumer
+        - we want the first consumer to block until we have something to consumer
+        - slots = n
+        - will put a p operation on slots to block the producer
+        - if we don't have any consumers p will be on slots and it will contniue and fiill thaht buffer up
+        - think of slots as empty slots
+        - items are items ready to consumer
+    # Reader-Writers
+    - as long as there are readers we are going to let them read - (favors reader) 
+        - first readers-writers problem
+        - if we had a while loop with only p(&w) and v(&w) it would just read once
+        - the p(&mutex) etc is giving exclusive access to read count
+        - first reader will get a lock on w and v will realease that lock
+    - second readers-writers problem
+    - starvation - looks indefinitely
+# Lab Threadpool
+- if you have nreadd== 0 you did something worng for step 1
+```
+size_t total_bytes_read = 0;
+char buffer[MAXSIZE];
+while (1) {
+    size_t nread = recv(sfd, buffer + total_bytes_read, MAXSIZE - total_bytes_read);
+    if (nread < 0) {
+        error("recv");
+    }
+    if (nread == 0) {
+        break;
+    }
+    total_bytes_read += nread;
+    check_if_done(); // checks if it ends in /r/n/r/n
+}
+- have some loop to handle short reads
+```
+# Test 2
+- i.o redirection
+- signals
+    - kill(pid, SIGINT) - 1 sleeps for 30
+    - sleep(5)
+    - kill(pid, SIGTERM) - 1 sleeps for 30
+    - sleep(40)
+    - 2 from SIGTEMM
+    - SIGINT forgets about sleep(30) and foes straight to printf(2)
+    - when sleep is interruptted by a signal it doesn't come back and finish its duration
+    - kill(pid, SIGKILL) kills child
+    - 1, 1, 2, 2
+- setpgid(0,0)
+
+- semaphores and sockets
+- P(s) - if s is nonzero, then P decrements s and returns immedieatlet. If s is zero, then suspend the thread until s becomes nonzero and the thread is restarted by a V operation. After restarting, the P operation decrements s and return control to the caller.
+- V(s) - the V operation increments s by 1. If there are any threads blocked at a P operation waiting for s to become nonzero, then the V operation restarts exactly one of the threads, which then completes its P operation by decrementg s.
+- sem_init(sem_t *sem, 0, unsigned int value)
+    - this initializes the semaphore to the value
+    - each semaphore must be initialized before it can be used
+- sem_wait(sem_t *sem) = P(sem_t *sem)
+- sem_post(sem_t *sem) = V(sem_t *sem)
+- mutex - binary semaphore meant to provide mutual exclusion
+- P operation is blocking the mutex and V is unblocking
+- counting semaphore - semaphore that is used as a counter for a set of available resources
+- also used to schedule accesses to shared resources 
+    - thread uses a semaphore operation to notify another thread that some condition in the program 
+- producer-consumer problem - the producer generates items and inserts them into a bounded buffer.
+    - the consumer removes items from the buffer and then consumes them.
+    - share a bounded buffer with n slots
+    - can't just uses mutex, we also need to scheduel acces to the buffer
+    - if the buffer is full (there are no empty slots), then the producer must wait until a slot becomes available
+    - if buffer is empty (there are no available items), then the consumer must wait until an item becomes available
+- slots and items are counting semaphores
+- slots means empty lstos
+
+- reader-writers problem
+    - readers - thread that only read
+    - writers - thrads that modify an object
+    - first readers-writers problem 
+        - favors readers
+        - no reader shall be kept waiting unless a writer has already been granted permission to access the shared object
+        - no reader should wait simply because a writer is waiting
+    - second readers-writers problem 
+        - favors writers
+        - writer gets to write as son=on as possible
+        - reader has to wait even if the writer is also aiting
+
+# Skillathon
+- NotebookLM - simulates stuff in a podcast
+- GLM - history.contenct/prompt implies predicted word
+- in order to predict word you need to know about everythning
+- zero shot prompting - givinh instructions
+- few - shot - giving an example then the thing that we want

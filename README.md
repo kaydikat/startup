@@ -54,7 +54,7 @@ This game is a fun way to test your geography skills. You will be given the name
     - **Play** - Implemented players component that makes a mock up of players getting updated in real time. Used state to keep track of score and temple data. Made map component that makes updates mock score and guess error. Will use actual coordinates once I can use google maps API.
     - **Scoreboard** - Made scoreboard component that makes a mock up of the scoreboard. Used state to keep track of scores.
 - **React Router** - Used React Router to navigate between login, play, and scoreboard pages.
-- **React Hooks** - Used useState to keep track of email, password, score, and temple data. Used useEffect to update temple data and scores.
+- **React Hooks** - Used useState to keep track of the temple index,temple number, total score, guess error, and if it's game over. Used useEffect to update temple data and scores. Also used useEffect to update the scoreboard in real time.
 
 ## Design ##
 ![Login page](./pictures/IMG_7717.jpg)
