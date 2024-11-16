@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import templeData from '../data/temples.json';
 import { GameNotifier, GameEvent } from './gameNotifier';
 
+import './mapGame.css';
+
 export function MapGame(props) {
     const [currentTempleIndex, setCurrentTempleIndex] = useState(0);
     const [templeNumber, setTempleNumber] = useState(1);
@@ -79,6 +81,7 @@ export function MapGame(props) {
           </div>
           <div className="score-info">
             <p>Total Score: {totalScore}</p>
+            <p>Your Location: {</p>
             <p>Guess Error: {guessError}</p>
           </div>
         </div>

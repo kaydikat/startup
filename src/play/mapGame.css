@@ -1,0 +1,14 @@
+.score-info {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center; 
+    padding: 10px; 
+    background-color: #f4f4f4; 
+    border: 1px solid #ddd; 
+    border-radius: 5px; 
+  }
+  
+  .score-info p {
+    margin: 0;
+    font-size: 16px;
+  }

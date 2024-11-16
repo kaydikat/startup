@@ -1,9 +1,6 @@
 import React from 'react';
 
 export function MyLocation() {
-  const [imageUrl, setImageUrl] = React.useState('data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs=');
-  const [quote, setQuote] = React.useState('Loading...');
-  const [quoteAuthor, setQuoteAuthor] = React.useState('unknown');
   const [region, setRegion] = React.useState('');
   const [city, setCity] = React.useState('');
   const [latitude, setLatitude] = React.useState('');
@@ -17,15 +14,6 @@ export function MyLocation() {
       .then((data) => {
         setRegion(data.region_name);
         setCity(data.city);
-        set
-      })
-      .catch();
-
-    fetch('https://quote.cs260.click')
-      .then((response) => response.json())
-      .then((data) => {
-        setQuote(data.quote);
-        setQuoteAuthor(data.author);
         setLatitude(data.latitude);
         setLongitude(data.longitude);
       })

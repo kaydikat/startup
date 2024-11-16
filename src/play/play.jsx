@@ -3,7 +3,7 @@ import './play.css';
 
 import { Players } from './players';
 import { MapGame } from './mapGame';
-import { MyLocation } from './myLocation';}
+import { MyLocation } from './myLocation';
 
 export function Play(props) {
   return (
@@ -16,8 +16,8 @@ export function Play(props) {
         </aside>
         <section className="col-md-10">
           <div className="text-center"> 
+
             <MapGame userName={props.userName} />
-            <MyLocation />
           </div>
         </section>
       </div>
