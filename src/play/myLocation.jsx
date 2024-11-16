@@ -1,15 +1,15 @@
 import React from 'react';
-import './about.css';
 
-export function About(props) {
+export function MyLocation(props) {
   const [imageUrl, setImageUrl] = React.useState('data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs=');
   const [quote, setQuote] = React.useState('Loading...');
   const [quoteAuthor, setQuoteAuthor] = React.useState('unknown');
+  const [location, setLocation] = React.useState({});
+  const [ipAddress, setIpAddress] = React.useState('');
 
   // We only want this to render the first time the component is created and so we provide an empty dependency list.
   React.useEffect(() => {
-    const random = Math.floor(Math.random() * 1000);
-    fetch(`https://picsum.photos/v2/list?page=${random}&limit=1`)
+    fetch(`https://apip.cc/json/${props.ipAddress}`)
       .then((response) => response.json())
       .then((data) => {
         const containerEl = document.querySelector('#picture');
@@ -30,6 +30,8 @@ export function About(props) {
       .catch();
   }, []);
 
+
+  
   return (
     <main className='container-fluid bg-secondary text-center'>
       <div>
@@ -48,6 +50,27 @@ export function About(props) {
           <p className='quote'>{quote}</p>
           <p className='author'>{quoteAuthor}</p>
         </div>
+      </div>
+    </main>
+  );
+}
+
+export function MyIpAddress() {
+  const [ipAddress, setIpAddress] = React.useState('');
+
+  React.useEffect(() => {
+    fetch(`https://api.ipify.org?format=json`)
+      .then((response) => response.json())
+      .then((data) => {
+        setIpAddress(data.ipAddress);
+      })
+      .catch();
+  }, []);
+
+  return (
+    <main className='container-fluid bg-secondary text-center'>
+      <div>
+        <p>Your IP address is {ipAddress}</p>
       </div>
     </main>
   );
