@@ -17,7 +17,7 @@ export function MapGame(props) {
   const [guessError, setGuessError] = useState(0);
   const [gameOver, setGameOver] = useState(false);
   const [temple, setTemple] = useState(null);
-  const [distance, setDistance] = useState(null);
+  const [distance, setDistance] = useState(1241.3);
 
   useEffect(() => {
     if (templeNumber <= 5) {
@@ -104,26 +104,34 @@ export function MapGame(props) {
   if (!temple) {
     return <div>Loading...</div>;
   }
-
   function calculateDistance(lat1, lon1, lat2, lon2) {
     // Haversine formula
     const toRadians = (degrees) => (degrees * Math.PI) / 180;
-
+  
     const R = 6371; // Earth's radius in kilometers
     const dLat = toRadians(lat2 - lat1);
     const dLon = toRadians(lon2 - lon1);
-
+  
     const a =
       Math.sin(dLat / 2) * Math.sin(dLat / 2) +
       Math.cos(toRadians(lat1)) *
         Math.cos(toRadians(lat2)) *
         Math.sin(dLon / 2) *
         Math.sin(dLon / 2);
-
+  
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    const distance = R * c;
-
-    return distance;
+    const distanceKm = R * c; // Distance in kilometers
+  
+    // Convert kilometers to miles
+    const distanceMiles = distanceKm * 0.621371;
+  
+    // Round to one decimal place
+    const roundedDistance = Math.round(distanceMiles * 10) / 10;
+  
+    // Alternatively, you can use toFixed
+    // const roundedDistance = parseFloat(distanceMiles.toFixed(1));
+  
+    return roundedDistance;
   }
 
   return (
@@ -140,7 +148,7 @@ export function MapGame(props) {
       </div>
       <div className="score-info">
         <p>Total Score: {totalScore}</p>
-        <p>Your Distance from {temple.Temple}: {distance} </p>
+        <p>Your Distance from {temple.Temple}: {distance}mi</p>
         <p>Guess Error: {guessError}</p>
       </div>
     </div>
