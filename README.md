@@ -56,6 +56,12 @@ This game is a fun way to test your geography skills. You will be given the name
 - **React Router** - Used React Router to navigate between login, play, and scoreboard pages.
 - **React Hooks** - Used useState to keep track of the temple index,temple number, total score, guess error, and if it's game over. Used useEffect to update temple data and scores. Also used useEffect to update the scoreboard in real time.
 
+## Service Deliverable ##
+- **Node.js and Express** - done!
+- **Express static middleware** - done!
+- **Calls to third-party endpoints** - Used fetch on a third-party api that gets the user's location from their ip address. I then calculated how far the user is from the temple. I couldn't figure out how to make the google maps api give me the right coordinates. However, I found a library called react-leaflet that I might used instead.
+- **Backend provides service endpoints** - I created endpoints for login and scores that will be used in the frontend.
+- **Frontend calls service endpoints** - I used fetch to call the login and scores endpoints in the frontend.
 ## Design ##
 ![Login page](./pictures/IMG_7717.jpg)
 ![Post-login page](./pictures/IMG_7718.jpg)
