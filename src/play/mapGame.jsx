@@ -17,7 +17,8 @@ export function MapGame(props) {
   const [guessError, setGuessError] = useState(0);
   const [gameOver, setGameOver] = useState(false);
   const [temple, setTemple] = useState(null);
-  const [distance, setDistance] = useState(1241.3);
+  const [lastDistance, setLastDistance] = useState(null);
+  const [lastTempleName, setLastTempleName] = useState('');
 
   useEffect(() => {
     if (templeNumber <= 5) {
@@ -33,15 +34,6 @@ export function MapGame(props) {
       setTemple(selectedTemple);
     } else {
       console.error('Temple data is not an array or is empty.');
-    }
-  };
-
-  const nextTemple = () => {
-    if (templeNumber < 5) {
-      setTempleNumber(templeNumber + 1);
-    } else {
-      setGameOver(true);
-      saveScore(totalScore);
     }
   };
 
@@ -73,12 +65,17 @@ export function MapGame(props) {
       templeLongitude
     );
 
-    setDistance(distanceInKm);
+    setLastDistance(distanceInKm);
+    setLastTempleName(temple.Temple);
+    setTotalScore(prevScore => prevScore + fakeScore);
+    setGuessError(prevGuessError => prevGuessError + fakeGuess);
 
-    setTotalScore(totalScore + fakeScore);
-    setGuessError(guessError + fakeGuess);
-
-    nextTemple();
+    if (templeNumber < 5) {
+      setTempleNumber(prevNumber => prevNumber + 1);
+    } else {
+      setGameOver(true);
+      saveScore(totalScore + fakeScore);
+    }
   };
 
   const resetGame = () => {
@@ -86,71 +83,71 @@ export function MapGame(props) {
     setTotalScore(0);
     setGuessError(0);
     setGameOver(false);
-    setDistance(null);
+    setLastDistance(null);
+    setLastTempleName('');
     selectRandomTemple();
   };
 
-  if (gameOver) {
-    return (
-      <div className="game-over">
-        <h2>Game Over</h2>
-        <p>Your total score is: {totalScore}</p>
-        <button onClick={resetGame}>Play Again</button>
-      </div>
-    );
-  }
-
-  // **Add the null check here**
   if (!temple) {
     return <div>Loading...</div>;
   }
+
   function calculateDistance(lat1, lon1, lat2, lon2) {
     // Haversine formula
     const toRadians = (degrees) => (degrees * Math.PI) / 180;
-  
+
     const R = 6371; // Earth's radius in kilometers
     const dLat = toRadians(lat2 - lat1);
     const dLon = toRadians(lon2 - lon1);
-  
+
     const a =
       Math.sin(dLat / 2) * Math.sin(dLat / 2) +
       Math.cos(toRadians(lat1)) *
         Math.cos(toRadians(lat2)) *
         Math.sin(dLon / 2) *
         Math.sin(dLon / 2);
-  
+
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     const distanceKm = R * c; // Distance in kilometers
-  
+
     // Convert kilometers to miles
     const distanceMiles = distanceKm * 0.621371;
-  
+
     // Round to one decimal place
     const roundedDistance = Math.round(distanceMiles * 10) / 10;
-  
-    // Alternatively, you can use toFixed
-    // const roundedDistance = parseFloat(distanceMiles.toFixed(1));
-  
+
     return roundedDistance;
   }
 
   return (
     <div className="map-game">
-      <h2>
-        Temple {templeNumber} of 5: {temple.Temple}
-      </h2>
-      <div className="map-container" onClick={handleMapClick}>
-        <img
-          src="world_map.png"
-          alt="World Map"
-          style={{ width: '100%', cursor: 'pointer' }}
-        />
-      </div>
-      <div className="score-info">
-        <p>Total Score: {totalScore}</p>
-        <p>Your Distance from {temple.Temple}: {distance}mi</p>
-        <p>Guess Error: {guessError}</p>
-      </div>
+      {gameOver ? (
+        <div className="game-over">
+          <h2>Game Over</h2>
+          <p>Your total score is: {totalScore}</p>
+          <button onClick={resetGame}>Play Again</button>
+        </div>
+      ) : (
+        <>
+          <h2>
+            Temple {templeNumber} of 5: {temple.Temple}
+          </h2>
+          <div className="map-container" onClick={handleMapClick}>
+            <img
+              src="world_map.png"
+              alt="World Map"
+              style={{ width: '100%', cursor: 'pointer' }}
+            />
+          </div>
+        </>
+      )}
+      {lastDistance !== null && (
+        <div className="score-info">
+          <p>Your Distance from {lastTempleName}: {lastDistance}mi</p>
+          <p>Total Score: {totalScore}</p>
+          <p>Guess Error: {guessError}</p>
+        </div>
+      )}
     </div>
   );
 }
