@@ -44,65 +44,105 @@ export function MapGame(props) {
       saveScore(totalScore);
     }
   };
-    async function saveScore(score) {
-      const date = new Date().toLocaleDateString();
-      const newScore = { name: userName, score: score, date: date };
-    
-      await fetch('/api/score', {
-        method: 'POST',
-        headers: { 'content-type': 'application/json' },
-        body: JSON.stringify(newScore),
-      });
-    
-      // Let other players know the game has concluded
-      GameNotifier.broadcastEvent(userName, GameEvent.End, newScore);
-    }
 
-    const handleMapClick = (event) => {
-        const fakeScore = Math.floor(Math.random() * 1000);
-        const fakeGuess = Math.floor(Math.random() * 1000);
+  async function saveScore(score) {
+    const date = new Date().toLocaleDateString();
+    const newScore = { name: userName, score: score, date: date };
 
-        setTotalScore(totalScore + fakeScore);
-        setGuessError(guessError + fakeGuess);
+    await fetch('/api/score', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify(newScore),
+    });
 
-        nextTemple();
-    }
+    // Let other players know the game has concluded
+    GameNotifier.broadcastEvent(userName, GameEvent.End, newScore);
+  }
 
-    const resetGame = () => {
-      setCurrentTempleIndex(0);
-      setTempleNumber(1);
-      setTotalScore(0);
-      setGuessError(0);
-      setGameOver(false);
-    };
-    
-    if (gameOver) {
-      return (
-        <div className="game-over">
-          <h2>Game Over</h2>
-          <p>Your total score is: {totalScore}</p>
-          <button onClick={resetGame}>Play Again</button>
-        </div>
-      );
-    }
+  const handleMapClick = (event) => {
+    const fakeScore = Math.floor(Math.random() * 1000);
+    const fakeGuess = Math.floor(Math.random() * 1000);
 
+    const templeLatitude = parseFloat(temple.Latitude);
+    const templeLongitude = parseFloat(temple.Longitude);
+
+    const distanceInKm = calculateDistance(
+      userLatitude,
+      userLongitude,
+      templeLatitude,
+      templeLongitude
+    );
+
+    setDistance(distanceInKm);
+
+    setTotalScore(totalScore + fakeScore);
+    setGuessError(guessError + fakeGuess);
+
+    nextTemple();
+  };
+
+  const resetGame = () => {
+    setTempleNumber(1);
+    setTotalScore(0);
+    setGuessError(0);
+    setGameOver(false);
+    setDistance(null);
+    selectRandomTemple();
+  };
+
+  if (gameOver) {
     return (
-        <div className="map-game">
-          <h2>
-            Temple {templeNumber} of 5: {currentTemple ? currentTemple.Temple : 'Unknown Temple'}
-          </h2>
-          <div className="map-container" onClick={handleMapClick}>
-            <img
-              src="world_map.png"
-              alt="World Map"
-              style={{ width: '100%', cursor: 'pointer' }}
-            />
-          </div>
-          <div className="score-info">
-            <p>Total Score: {totalScore}</p>
-            <p>Your Location: </p>
-            <p>Guess Error: {guessError}</p>
-          </div>
-        </div>
-      );
-    }
+      <div className="game-over">
+        <h2>Game Over</h2>
+        <p>Your total score is: {totalScore}</p>
+        <button onClick={resetGame}>Play Again</button>
+      </div>
+    );
+  }
+
+  // **Add the null check here**
+  if (!temple) {
+    return <div>Loading...</div>;
+  }
+
+  function calculateDistance(lat1, lon1, lat2, lon2) {
+    // Haversine formula
+    const toRadians = (degrees) => (degrees * Math.PI) / 180;
+
+    const R = 6371; // Earth's radius in kilometers
+    const dLat = toRadians(lat2 - lat1);
+    const dLon = toRadians(lon2 - lon1);
+
+    const a =
+      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos(toRadians(lat1)) *
+        Math.cos(toRadians(lat2)) *
+        Math.sin(dLon / 2) *
+        Math.sin(dLon / 2);
+
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    const distance = R * c;
+
+    return distance;
+  }
+
+  return (
+    <div className="map-game">
+      <h2>
+        Temple {templeNumber} of 5: {temple.Temple}
+      </h2>
+      <div className="map-container" onClick={handleMapClick}>
+        <img
+          src="world_map.png"
+          alt="World Map"
+          style={{ width: '100%', cursor: 'pointer' }}
+        />
+      </div>
+      <div className="score-info">
+        <p>Total Score: {totalScore}</p>
+        <p>Your Distance from {temple.Temple}: {distance} </p>
+        <p>Guess Error: {guessError}</p>
+      </div>
+    </div>
+  );
+}
