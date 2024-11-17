@@ -1,50 +1,34 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 export function MyLocation() {
-  const [region, setRegion] = React.useState('');
-  const [city, setCity] = React.useState('');
-  const [latitude, setLatitude] = React.useState('');
-  const [longitude, setLongitude] = React.useState('');
+  const [ipAddress, setIpAddress] = useState('');
+  const [region, setRegion] = useState('');
+  const [city, setCity] = useState('');
+  const [latitude, setLatitude] = useState('');
+  const [longitude, setLongitude] = useState('');
 
-  // We only want this to render the first time the component is created and so we provide an empty dependency list.
-  const ipAddress = MyIpAddress();
-  React.useEffect(() => {
-    fetch(`https://apip.cc/json/${ipAddress}`)
+  useEffect(() => {
+    fetch('https://ipapi.co/json/')
       .then((response) => response.json())
       .then((data) => {
-        setRegion(data.region_name);
+        setIpAddress(data.ip);
+        setRegion(data.region);
         setCity(data.city);
         setLatitude(data.latitude);
         setLongitude(data.longitude);
       })
-      .catch();
+      .catch((error) => {
+        console.error('Error fetching location data:', error);
+      });
   }, []);
 
-
-  
   return (
-     <div>
+    <div>
+      <p><strong>IP Address:</strong> {ipAddress}</p>
       <p><strong>Region:</strong> {region}</p>
       <p><strong>City:</strong> {city}</p>
       <p><strong>Latitude:</strong> {latitude}</p>
       <p><strong>Longitude:</strong> {longitude}</p>
     </div>
-  );
-}
-
-export function MyIpAddress() {
-  const [ipAddress, setIpAddress] = React.useState('');
-
-  React.useEffect(() => {
-    fetch(`https://api.aruljohn.com/ip/json`)
-      .then((response) => response.json())
-      .then((data) => {
-        setIpAddress(data.ipAddress);
-      })
-      .catch();
-  }, []);
-
-  return (
-    {ipAddress}
   );
 }

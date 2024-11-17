@@ -3,7 +3,7 @@ import './play.css';
 
 import { Players } from './players';
 import { MapGame } from './mapGame';
-import { MyLocation } from './myLocation';
+import { MyLocation } from './myLocation.jsx';
 
 export function Play(props) {
   return (
