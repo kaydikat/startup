@@ -5,26 +5,45 @@ import { GameNotifier, GameEvent } from './gameNotifier';
 import './mapGame.css';
 
 export function MapGame(props) {
-    const [currentTempleIndex, setCurrentTempleIndex] = useState(0);
-    const [templeNumber, setTempleNumber] = useState(1);
-    const [totalScore, setTotalScore] = useState(0);
-    const [guessError, setGuessError] = useState(0);
-    const [gameOver, setGameOver] = useState(false);
+  const {
+    userName,
+    myLat: userLatitude,
+    myLong: userLongitude,
+  } = props;
 
-    const userName = props.userName;
-    const currentTemple = templeData[currentTempleIndex];
+  const [currentTempleIndex, setCurrentTempleIndex] = useState(null);
+  const [templeNumber, setTempleNumber] = useState(1);
+  const [totalScore, setTotalScore] = useState(0);
+  const [guessError, setGuessError] = useState(0);
+  const [gameOver, setGameOver] = useState(false);
+  const [temple, setTemple] = useState(null);
+  const [distance, setDistance] = useState(null);
 
-    const nextTemple = () => {
-        if (templeNumber < 5) {
-            setTempleNumber(templeNumber + 1);
-            setCurrentTempleIndex((currentTempleIndex + 1) % templeData.length);
-        } else {
-            setGameOver(true);
+  useEffect(() => {
+    if (templeNumber <= 5) {
+      selectRandomTemple();
+    }
+  }, [templeNumber]);
 
-            saveScore(totalScore);
-        }
-    };
+  const selectRandomTemple = () => {
+    if (Array.isArray(templeData) && templeData.length > 0) {
+      const randomIndex = Math.floor(Math.random() * templeData.length);
+      const selectedTemple = templeData[randomIndex];
+      setCurrentTempleIndex(randomIndex);
+      setTemple(selectedTemple);
+    } else {
+      console.error('Temple data is not an array or is empty.');
+    }
+  };
 
+  const nextTemple = () => {
+    if (templeNumber < 5) {
+      setTempleNumber(templeNumber + 1);
+    } else {
+      setGameOver(true);
+      saveScore(totalScore);
+    }
+  };
     async function saveScore(score) {
       const date = new Date().toLocaleDateString();
       const newScore = { name: userName, score: score, date: date };

@@ -4,6 +4,8 @@ import templeData from '../data/temples.json';
 export function RandomTemple() {
   const [templeName, setTempleName] = useState('');
   const [count, setCount] = useState(0);
+  const [latitude, setLatitude] = useState('');
+  const [longitude, setLongitude] = useState('');
 
   useEffect(() => {
     // Ensure that templeData is an array
