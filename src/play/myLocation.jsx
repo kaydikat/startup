@@ -36,7 +36,7 @@ export function MyIpAddress() {
   const [ipAddress, setIpAddress] = React.useState('');
 
   React.useEffect(() => {
-    fetch(`https://api.ipify.org?format=json`)
+    fetch(`https://api.aruljohn.com/ip/json`)
       .then((response) => response.json())
       .then((data) => {
         setIpAddress(data.ipAddress);
