@@ -3442,3 +3442,22 @@ console.log('fries');
 - ./deployService.sh -k ~/prod.pem -h yourdomain.click -s simon
 - The -k parameter provides the credential file necessary to access your production environment. 
 - The -h parameter is the domain name of your production environment. - The -s parameter represents the name of the application you are deploying (either simon or startup).
+
+# Startup login
+Add code for connecting to the database
+Provide endpoints for adding, updating, and deleting your application data in the database
+Persist data in MongoDB.
+Display the user data in the frontend by manipulating the DOM.
+Allow new users to create accounts by providing credentials
+Store encrypted credentials in your database
+Allow existing users to provide credentials
+Allow existing users to logout
+Authenticate users by comparing provided credentials against those stored in the database
+- Restrict access to parts of the application that require authorization
+- Debug your application using VS Code's Node debugger and the browser's dev tools, in your development environment to verify it is working correctly.
+- Periodically commit and push your code to GitHub.
+- Periodically update your startup repository's notes.md file to reflect what you have learned and want to remember.
+- Push your final version of your project to GitHub.
+- Deploy your startup application to your production environment (your server).
+- Make sure your application is available from your production environment.
+- Upload the URL to your startup application to the Canvas assignment.

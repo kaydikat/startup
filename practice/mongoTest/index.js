@@ -2,7 +2,7 @@ const { MongoClient } = require('mongodb');
 const config = require('./dbConfig.json');
 
 async function main() {
-  const url = `mongodb+srv://${config.userName}:${encodeURIComponent(config.password)}@${config.hostname}/?retryWrites=true&w=majority`;
+  const url = `mongodb+srv://${config.username}:${encodeURIComponent(config.password)}@${config.hostname}/?retryWrites=true&w=majority`;
   const client = new MongoClient(url);
 
   try {
