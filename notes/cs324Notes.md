@@ -1108,3 +1108,61 @@ while (1) {
 - in order to predict word you need to know about everythning
 - zero shot prompting - givinh instructions
 - few - shot - giving an example then the thing that we want
+
+# Midterm 3
+- 15 questions - 1st midterm
+- 53 questions in all
+- alwaysi nitialize binary semaphore to 1
+- it is okay to initialize something to zero, particularlt for consmers
+- waitpid - review
+    - waitpid - what a process calls when it want to reap its children
+    - 0 means it's blocking - waiting for the child process to end
+    - WNOHANG - will return immediatley if no child has exited
+    - &wstatus
+        - WIFEXITED - returns true if the child terminated normally; still exited even if there was an error EXIT(3); will be false if terminated by sgnal
+    - process groups
+        - every process has its own id
+        - every process has a parent process
+        - every process has a group id
+        - default - parent's pgid
+        - setpgid(0,0) - sets the process group id to your process id
+            - significant because the shell can receive signals and it will forward that to the process group of the forground pprocess
+        - kernal does pending and not blocked calculation every time the kernal switches from kernal code to user code
+            - everytime a process is being scheduled to run
+    - threads
+        - ptrhead+create
+        - joinable - default
+        - pthread_join
+        - detatch
+            - if its detathced the system will reclaimit's thread stack if it ends
+            - another thread will specifically call join on it
+        - if any thread calls exit the program terminates
+        - how does one thread stop without the whole program stopping?
+            - pthread_exit
+            - join it to the main thread
+            - returning form the function
+    - sockets
+        | Type of Socket | Client | Server | TCP | UDP |
+        |----------------|--------|--------|-----|-----|
+        | Socket         |   X    |   X    |  X  |  X  | returns fd
+        | Bad            |   opt  |   X    |  X  |  X  | local port
+        | listen         |   no   |   X    |  X  |  no |
+        | accept         |   no   |   X    |  X  |  no | blocking fd; returns fd
+        | connect        |   X    |   no   |  X  |  opt|
+        | read/write     |   X    |   X    |  X  |  X  |
+        | send/recv      |   X    |   X    |  X  |  X  |
+        | sendto/recvfrom|   X    |   X    |  opt|  X  |
+        | close          |   X    |   X    |  X  |  X  | 
+        - connect
+            - for tcp the three way handshake happens
+            - for udp its optional because there is no communication
+                - way to show the server you intend to talk to
+                - can use send or receive or read write
+# Parallelism - no on Midterm 3
+- p process cores - Tk is the running time using k cores
+- if T = 10, p = .9 (90% can get sped up), k = 9
+- Amdahl's Law - Tk = T/(1 - p + p/k)
+- T9 = .9*10/9+,1*10=1+1= 2
+- least possible running time
+    - Tinf = .1 * 10 = 1
+- OpenMP - used to parallelize loops

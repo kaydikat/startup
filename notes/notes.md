@@ -3437,3 +3437,8 @@ console.log('fries');
 - Create the router
 - Convert HTML to React components
 - Replace deployment script
+
+# Deployment and production
+- ./deployService.sh -k ~/prod.pem -h yourdomain.click -s simon
+- The -k parameter provides the credential file necessary to access your production environment. 
+- The -h parameter is the domain name of your production environment. - The -s parameter represents the name of the application you are deploying (either simon or startup).
