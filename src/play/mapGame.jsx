@@ -40,15 +40,27 @@ export function MapGame(props) {
   async function saveScore(score) {
     const date = new Date().toLocaleDateString();
     const newScore = { name: userName, score: score, date: date };
-
-    await fetch('/api/score', {
+  
+    const response = await fetch('/api/score', {
       method: 'POST',
-      headers: { 'content-type': 'application/json' },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(newScore),
+      credentials: 'include',
     });
-    // Let other players know the game has concluded
+  
+    // Process the server's response
+    const scores = await response.json();
+  
+    // Now you have access to the scores sent by the server
+    console.log('High scores:', scores);
+  
+    // Optionally, update your state to reflect the new scores
+    // setScores(scores);
+  
+    // Notify other players
     GameNotifier.broadcastEvent(userName, GameEvent.End, newScore);
   }
+  
 
   const handleMapClick = (event) => {
     const fakeScore = Math.floor(Math.random() * 1000);

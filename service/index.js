@@ -90,9 +90,10 @@ secureApiRouter.get('/scores', async (req, res) => {
 secureApiRouter.post('/score', async (req, res) => {
   const score = { ...req.body, ip: req.ip };
   await DB.addScore(score);
-  const scores = await DB.getHighScores();
-  res.send(scores);
+  // Send back the added score instead of the high scores list
+  res.send(score);
 });
+
 
 // Default error handler
 app.use(function (err, req, res, next) {
