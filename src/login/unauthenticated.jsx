@@ -1,3 +1,5 @@
+// login/inauthenticated.jsx (This contains that function we are trying to get to work)
+
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
@@ -18,21 +20,40 @@ export function Unauthenticated(props) {
   }
 
   async function loginOrCreate(endpoint) {
-    const response = await fetch(endpoint, {
-      method: 'post',
-      body: JSON.stringify({ email: userName, password: password }),
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8',
-      },
-    });
-    if (response?.status === 200) {
-      localStorage.setItem('userName', userName);
-      props.onLogin(userName);
-    } else {
-      const body = await response.json();
-      setDisplayError(`⚠ Error: ${body.msg}`);
+    console.log(`Logging in as ${userName} with password ${password}`);
+    console.log(`Endpoint is ${endpoint}`);
+    try {
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        body: JSON.stringify({ email: userName, password: password }),
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+      });
+      
+      console.log(`POST response status: ${response.status}`);
+      
+      if (response.status === 200) {
+        console.log(`Login/Create successful for user: ${userName}`);
+        localStorage.setItem('userName', userName);
+        props.onLogin(userName);
+      } else {
+        let errorMsg = `⚠ Error: Received status ${response.status}`;
+        try {
+          const body = await response.json();
+          errorMsg += ` - ${body.msg}`;
+        } catch (parseError) {
+          errorMsg += ` - Unable to parse error message.`;
+        }
+        console.error(`Login/Create error: ${errorMsg}`);
+        setDisplayError(errorMsg);
+      }
+    } catch (error) {
+      console.error(`POST fetch error: ${error.message}`);
+      setDisplayError(`⚠ Error: Network issue or server error. Details: ${error.message}`);
     }
   }
+  
 
   return (
     <>

@@ -56,7 +56,7 @@ The .git directory is where all of the versions get stored.
 
 ## EC2
 - IP address - 98.81.134.149
-- ssh -i ~/Downloads/production.pem ubuntu@98.81.134.149
+- ssh -i ~/Downloads/production.pem ubuntu@54.225.166.177
 - Elastic IP address - 54.225.166.177
 - NS and SOA type records make sure that it's you
 - http//:templeguesser.click

@@ -1,3 +1,5 @@
+// service/index.js
+
 const cookieParser = require('cookie-parser');
 const bcrypt = require('bcrypt');
 const express = require('express');
@@ -11,6 +13,8 @@ const port = process.argv.length > 2 ? process.argv[2] : 4000;
 
 // JSON body parsing using built-in middleware
 app.use(express.json());
+const morgan = require('morgan'); 
+app.use(morgan('combined'));
 
 // Use the cookie parser middleware for tracking authentication tokens
 app.use(cookieParser());
@@ -26,18 +30,28 @@ const apiRouter = express.Router();
 app.use(`/api`, apiRouter);
 
 // CreateAuth token for a new user
-apiRouter.post('/auth/create', async (req, res) => {
-  if (await DB.getUser(req.body.email)) {
-    res.status(409).send({ msg: 'Existing user' });
-  } else {
+apiRouter.post('/auth/create', async (req, res, next) => {
+  console.log(`Processing /auth/create with email: ${req.body.email}`);
+  
+  try {
+    if (await DB.getUser(req.body.email)) {
+      console.log(`User with email ${req.body.email} already exists.`);
+      return res.status(409).send({ msg: 'Existing user' });
+    }
+    
     const user = await DB.createUser(req.body.email, req.body.password);
-
+    console.log(`User created with ID: ${user._id}`);
+    
     // Set the cookie
     setAuthCookie(res, user.token);
-
+    console.log(`Auth cookie set for user: ${user.email}`);
+    
     res.send({
       id: user._id,
     });
+  } catch (error) {
+    console.error(`Error in /auth/create: ${error.message}`);
+    next(error); // Pass the error to the default error handler
   }
 });
 
@@ -74,19 +88,19 @@ secureApiRouter.use(async (req, res, next) => {
   }
 });
 
-// GetScores
-secureApiRouter.get('/scores', async (req, res) => {
-  const scores = await DB.getHighScores();
-  res.send(scores);
-});
+// // GetScores
+// secureApiRouter.get('/scoreboard', async (req, res) => {
+//   const scores = await DB.getHighScores();
+//   res.send(scores);
+// });
 
-// SubmitScore
-secureApiRouter.post('/score', async (req, res) => {
-  const score = { ...req.body, ip: req.ip };
-  await DB.addScore(score);
-  const scores = await DB.getHighScores();
-  res.send(scores);
-});
+// // SubmitScore
+// secureApiRouter.post('/score', async (req, res) => {
+//   const score = { ...req.body, ip: req.ip };
+//   await DB.addScore(score);
+//   const scores = await DB.getHighScores();
+//   res.send(scores);
+// });
 
 // Default error handler
 app.use(function (err, req, res, next) {

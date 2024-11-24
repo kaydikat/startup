@@ -1,9 +1,13 @@
+// service/database.js
+
 const { MongoClient, ServerApiVersion } = require('mongodb');
 const bcrypt = require('bcrypt');
 const uuid = require('uuid');
 const config = require('./dbConfig.json');
 
-const url = `mongodb+srv://${config.username}:${config.password}@${config.hostname}/?retryWrites=true&w=majority&appName=Cluster0`;
+const password = encodeURIComponent(config.password);
+
+const url = `mongodb+srv://${config.username}:${password}@${config.hostname}`;
 const client = new MongoClient(url, {
   serverApi: {
     version: ServerApiVersion.v1,
@@ -27,12 +31,13 @@ const scoreCollection = db.collection('score');
   process.exit(1);
 });
 
-function getUser(email) {
-  return userCollection.findOne({ email: email });
+async function getUser(email) {
+    return userCollection.findOne({ email: email });
 }
 
-function getUserByToken(token) {
-  return userCollection.findOne({ token: token });
+
+async function getUserByToken(token) {
+    return userCollection.findOne({ token: token });
 }
 
 async function createUser(email, password) {
@@ -49,24 +54,24 @@ async function createUser(email, password) {
   return user;
 }
 
-async function addScore(score) {
-  return scoreCollection.insertOne(score);
-}
+// async function addScore(score) {
+//   return scoreCollection.insertOne(score);
+// }
 
-function getHighScores() {
-  const query = { score: { $gt: 0, $lt: 900 } };
-  const options = {
-    sort: { score: -1 },
-    limit: 10,
-  };
-  const cursor = scoreCollection.find(query, options);
-  return cursor.toArray();
-}
+// function getHighScores() {
+//   const query = { score: { $gt: 0, $lt: 900 } };
+//   const options = {
+//     sort: { score: -1 },
+//     limit: 10,
+//   };
+//   const cursor = scoreCollection.find(query, options);
+//   return cursor.toArray();
+// }
 
 module.exports = {
   getUser,
   getUserByToken,
   createUser,
-  addScore,
-  getHighScores,
+//   addScore,
+//   getHighScores,
 };
