@@ -1,3 +1,4 @@
+
 import React from 'react';
 import './scoreboard.css';
 
@@ -8,13 +9,13 @@ export function Scoreboard() {
   // React can properly update state objects with the results.
 
   React.useEffect(() => {
-    fetch('/api/scores')
+    fetch('/api/scores', { credentials: 'include' })
       .then((response) => response.json())
       .then((scores) => {
+        console.log('Scores fetched from server:', scores); // Add this line
         setScores(scores);
       });
   }, []);
-
   // Demonstrates rendering an array with React
   const scoreRows = [];
   if (scores && scores.length > 0) {

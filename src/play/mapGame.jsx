@@ -46,7 +46,6 @@ export function MapGame(props) {
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify(newScore),
     });
-
     // Let other players know the game has concluded
     GameNotifier.broadcastEvent(userName, GameEvent.End, newScore);
   }
@@ -54,6 +53,9 @@ export function MapGame(props) {
   const handleMapClick = (event) => {
     const fakeScore = Math.floor(Math.random() * 1000);
     const fakeGuess = Math.floor(Math.random() * 1000);
+
+    const newTotalScore = totalScore + fakeScore;
+    setTotalScore(newTotalScore);
 
     const templeLatitude = parseFloat(temple.Latitude);
     const templeLongitude = parseFloat(temple.Longitude);
@@ -74,7 +76,7 @@ export function MapGame(props) {
       setTempleNumber(prevNumber => prevNumber + 1);
     } else {
       setGameOver(true);
-      saveScore(totalScore + fakeScore);
+      saveScore(newTotalScore);
     }
   };
 

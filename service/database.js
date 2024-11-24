@@ -58,12 +58,8 @@ async function addScore(score) {
   return scoreCollection.insertOne(score);
 }
 
-async function scoreboard() {
-    return scoreCollection.find().sort({ score: -1 }).limit(10).toArray();
-}
-
 function getHighScores() {
-  const query = { score: { $gt: 0, $lt: 900 } };
+  const query = { score: { $gt: 0 } };
   const options = {
     sort: { score: -1 },
     limit: 10,
