@@ -9,6 +9,9 @@ const client = new MongoClient(url, {
     version: ServerApiVersion.v1,
     strict: true,
     deprecationErrors: true,
+    tls: true, 
+    serverSelectionTimeoutMS: 3000, 
+    autoSelectFamily: false,
   }
 });
 const db = client.db('startup');
