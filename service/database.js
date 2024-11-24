@@ -8,16 +8,7 @@ const config = require('./dbConfig.json');
 const password = encodeURIComponent(config.password);
 
 const url = `mongodb+srv://${config.username}:${password}@${config.hostname}`;
-const client = new MongoClient(url, {
-  serverApi: {
-    version: ServerApiVersion.v1,
-    strict: true,
-    deprecationErrors: true,
-    tls: true, 
-    serverSelectionTimeoutMS: 3000, 
-    autoSelectFamily: false,
-  }
-});
+const client = new MongoClient(url, { tls: true, serverSelectionTimeoutMS: 3000, autoSelectFamily: false, });
 const db = client.db('startup');
 const userCollection = db.collection('user');
 const scoreCollection = db.collection('score');
