@@ -30,28 +30,18 @@ const apiRouter = express.Router();
 app.use(`/api`, apiRouter);
 
 // CreateAuth token for a new user
-apiRouter.post('/auth/create', async (req, res, next) => {
-  console.log(`Processing /auth/create with email: ${req.body.email}`);
-  
-  try {
-    if (await DB.getUser(req.body.email)) {
-      console.log(`User with email ${req.body.email} already exists.`);
-      return res.status(409).send({ msg: 'Existing user' });
-    }
-    
+apiRouter.post('/auth/create', async (req, res) => {
+  if (await DB.getUser(req.body.email)) {
+    res.status(409).send({ msg: 'Existing user' });
+  } else {
     const user = await DB.createUser(req.body.email, req.body.password);
-    console.log(`User created with ID: ${user._id}`);
-    
+
     // Set the cookie
     setAuthCookie(res, user.token);
-    console.log(`Auth cookie set for user: ${user.email}`);
-    
+
     res.send({
       id: user._id,
     });
-  } catch (error) {
-    console.error(`Error in /auth/create: ${error.message}`);
-    next(error); // Pass the error to the default error handler
   }
 });
 
@@ -74,6 +64,7 @@ apiRouter.delete('/auth/logout', (_req, res) => {
   res.status(204).end();
 });
 
+
 // secureApiRouter verifies credentials for endpoints
 const secureApiRouter = express.Router();
 apiRouter.use(secureApiRouter);
@@ -88,19 +79,19 @@ secureApiRouter.use(async (req, res, next) => {
   }
 });
 
-// // GetScores
-// secureApiRouter.get('/scoreboard', async (req, res) => {
-//   const scores = await DB.getHighScores();
-//   res.send(scores);
-// });
+// GetScores
+secureApiRouter.get('/scores', async (req, res) => {
+  const scores = await DB.getHighScores();
+  res.send(scores);
+});
 
-// // SubmitScore
-// secureApiRouter.post('/score', async (req, res) => {
-//   const score = { ...req.body, ip: req.ip };
-//   await DB.addScore(score);
-//   const scores = await DB.getHighScores();
-//   res.send(scores);
-// });
+// SubmitScore
+secureApiRouter.post('/score', async (req, res) => {
+  const score = { ...req.body, ip: req.ip };
+  await DB.addScore(score);
+  const scores = await DB.getHighScores();
+  res.send(scores);
+});
 
 // Default error handler
 app.use(function (err, req, res, next) {
