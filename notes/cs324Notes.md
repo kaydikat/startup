@@ -930,7 +930,7 @@ kind of encapsulation is one of the fundamental insights of internetworking.
         sigaction(SIGCHLD, &sigact, NULL);
         if ((pid = fork()) == 0) {
             // SECTION 1 CODE
-            exit(0);
+            exit(2);
         }
         sleep(2);
         // SECTION 2 CODE
@@ -1130,7 +1130,7 @@ while (1) {
         - kernal does pending and not blocked calculation every time the kernal switches from kernal code to user code
             - everytime a process is being scheduled to run
     - threads
-        - ptrhead+create
+        - ptrhead_create
         - joinable - default
         - pthread_join
         - detatch
@@ -1145,7 +1145,7 @@ while (1) {
         | Type of Socket | Client | Server | TCP | UDP |
         |----------------|--------|--------|-----|-----|
         | Socket         |   X    |   X    |  X  |  X  | returns fd
-        | Bad            |   opt  |   X    |  X  |  X  | local port
+        | Bind           |   opt  |   X    |  X  |  X  | local port
         | listen         |   no   |   X    |  X  |  no |
         | accept         |   no   |   X    |  X  |  no | blocking fd; returns fd
         | connect        |   X    |   no   |  X  |  opt|
@@ -1166,3 +1166,80 @@ while (1) {
 - least possible running time
     - Tinf = .1 * 10 = 1
 - OpenMP - used to parallelize loops
+
+# I.O multiplexing
+- one process, no threading
+- really beefy servers use this
+- used for uni-core
+- epoll - used for multi-core
+- epoll_create1(2) - creates an epoll instance called once
+- your gonna have a bunch of sockets in your proxy lab and you're gonna keep track of the information
+- fcntl - makes a socket not blocking
+- edge-triggered - ET
+    - if you call 100 bytes on recv, when you call on epoll_wiat it will block indefinitely
+    - expects to receive everything; becasue there was a recv in a while loop
+- level-triggered - LT 
+    - epoll is level triggered by default
+    - suppose you are sent 1000 bytes by a client
+    - only space for a 100 bytes when calling recv
+    - after you read the 100 you go back to epoll_wait
+- epoll_wait - will be the only blocking call in my program
+- n tells us how many sockets are ready to use I.O
+- let epoll_wait tell you theres data from some dlient - can be clientfd or listenfd
+- b = epoll_wait()
+- for each ecebt
+    - get the state
+    - case 0 - listeing socket
+    - case 1 - client socket
+
+# virtual Memory
+- small devices use virtual address 0 not coressponding t ophysical addresses in main memory
+- every prgraom has the same virtual address space
+- only going to take parts of virtual memory into main memory
+- every process has a page table
+- virtual memory is just an array of bytes
+- break up citrual memory into pages
+- each of those pages will have one entry inthe page table
+- some of the pages ilwl be put in main memory
+- table will have a pointer that says where it is in main memory
+- page hit - virtual address that is valid and is in main memory
+- page faulr - valid bit is 0 - will do exception handling; back up and restart translation process ocer again
+    - demand paging - we copied things into main memory when we needed them
+- every process has the same virtual memory
+- 4 bytes = 2^2
+- 2 bit addresses - 00, 01, 10, 11
+- 2^32 - 4GB
+- if P = 2^10 - you need 10 bits to reference every byte on the page
+- for every address you want to translates, there are 2steps
+    - process sends virtual address to mmu 
+    - mmu fetches page tabel entry(ptE) from page table memory
+
+# HW 7
+- sha1sum - 04c0e2cf0a9e2cbc58c4d16348ef4e3be2c46efc
+
+# HW 8
+- if the address is 24 bits long then the addresses are 2^24 long
+- physical memory -  16 bit addresses - 2^16 bytes of main memory
+- page size - 1024 - 2^10
+- page size - 2048 - 2^11
+- offset depends on the page size - if the pages are 11 bits, then the offset is 11 bits; gives the offset within a page
+- how many bit of the VA are used for th virtual page number? - 24 - 11 = 13
+- 8 TLB - 8 sets - 2^3 - 3 bits
+- if there are 8 sets and 32 entries it is still 3 bits
+- tlb tag is dependednt on set
+- split tlb into tag and index
+- tlb index = 3
+- tlb tag = 10 - 13 - 3 = 10
+- virtual page offset and physical page offset are the same because htey have thame page sizes
+- offset tells us where something is on the page
+- PPN = 16-11 = 5
+
+- Ox027c - 0000 0010 0111 1100
+- What is the value of the VPN in hexadecimal?
+    - when given the virtual address, you need page size; we know we know VPO is 6
+    - so is VPO is 6, then VPN start at 7th bith and the virtul offset is 0x09
+- 4 sets = 2^2 = 2 bits
+- index in hex is 0x01
+- value of tag in hex is 0x02
+- it's a miss becaue the valid bit wasn't on
+- not a page fault when the valid bit is 1
