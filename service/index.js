@@ -5,6 +5,7 @@ const bcrypt = require('bcrypt');
 const express = require('express');
 const app = express();
 const DB = require('./database.js');
+const { peerProxy } = require('./peerProxy.js');
 
 const authCookieName = 'token';
 
@@ -13,8 +14,6 @@ const port = process.argv.length > 2 ? process.argv[2] : 4000;
 
 // JSON body parsing using built-in middleware
 app.use(express.json());
-const morgan = require('morgan'); 
-app.use(morgan('combined'));
 
 // Use the cookie parser middleware for tracking authentication tokens
 app.use(cookieParser());
@@ -118,3 +117,4 @@ const httpService = app.listen(port, () => {
   console.log(`Listening on port ${port}`);
 });
 
+peerProxy(httpService);
