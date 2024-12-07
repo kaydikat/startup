@@ -100,6 +100,9 @@ export function MapGame(props) {
     setLastDistance(null);
     setLastTempleName('');
     selectRandomTemple();
+
+     // Let other players know a new game has started
+     GameNotifier.broadcastEvent(userName, GameEvent.Start, {});
   };
 
   if (!temple) {
