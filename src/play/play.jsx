@@ -1,7 +1,6 @@
 import React from 'react';
 import './play.css';
 import { useState, useEffect } from 'react';
-
 import { Players } from './players';
 import { MapGame } from './mapGame';
 

@@ -63,12 +63,19 @@ This game is a fun way to test your geography skills. You will be given the name
 - **Backend provides service endpoints** - I created endpoints for login and scores that will be used in the frontend.
 - **Frontend calls service endpoints** - I used fetch to call the login and scores endpoints in the frontend.
 
-## Service Login ##
+## Service Login Deliverable ##
 - **Supports new user registration** - Done! Puts a new user in mongodb with their own authtoken and id.
 - **Supports existing user authentication and logout** - Done! Checks if the user is in the database and if the password is correct. If it is, it will give the user an authtoken. If the user logs out, it will delete the authtoken.
 - **Stores application data in MongoDB** - Done! Stores user data in mongodb. Stores temple data in mongodb. Stores scores in mongodb.
 - **Stores and retrieves credentials in MongoDB** - Done! Stores user credentials in mongodb. Retrieves user credentials from mongodb.
 - **Restricst application functionality based upon authentication** - Done! If the user is not logged in, they can't see the scoreboard or play. If the user is logged in, they can see the scoreboard and play.
+
+## WebSocket Deliverable ##
+- **Backend WebSocket server** - Done! 
+- **Frontend WebSocket client** - Done!
+- **Data sent over Wbsocket connection** - Done! Sends the user's name and score to the server. The server then sends the user's name and score to all the other users.
+- **WebSocket data displayed in application** - Done! Displays the user's name and score on the play page.
+
 ## Design ##
 ![Login page](./pictures/IMG_7717.jpg)
 ![Post-login page](./pictures/IMG_7718.jpg)

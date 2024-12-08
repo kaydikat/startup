@@ -3,6 +3,7 @@ import templeData from '../data/temples.json';
 import { GameNotifier, GameEvent } from './gameNotifier';
 
 import './mapGame.css';
+import 'leaflet/dist/leaflet.css';
 
 export function MapGame(props) {
   const {
