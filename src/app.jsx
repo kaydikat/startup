@@ -6,7 +6,6 @@ import { Scoreboard } from './scoreboard/scoreboard';
 import { AuthState } from './login/authState';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './app.css';
-import 'leaflet/dist/leaflet.css';
 import { Navbar, Nav, Container } from 'react-bootstrap';
 
 export default function App() {
