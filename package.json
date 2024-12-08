@@ -1,4 +1,5 @@
 {
+  "type": "module",
   "name": "startup",
   "version": "1.0.0",
   "description": "This game is a fun way to test your geography skills. You will be given the name of an LDS temple and you will have to guess it's location on the map. The closer you are to the actual location, the more points you will earn. Have fun competing with your friends to see who can get the highest score.",
@@ -27,6 +28,6 @@
     "ws": "^8.18.0"
   },
   "devDependencies": {
-    "vite": "^5.4.10"
+    "vite": "^6.0.3"
   }
 }

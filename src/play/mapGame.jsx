@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from 'react';
+
+// leaflet is a library for interactive maps
+import { MapContainer, TileLayer, useMapEvent } from 'react-leaflet';
+import L from 'leaflet';
+// import 'leaflet/dist/leaflet.css';
 import templeData from '../data/temples.json';
 import { GameNotifier, GameEvent } from './gameNotifier';
 
 import './mapGame.css';
-import 'leaflet/dist/leaflet.css';
 
 export function MapGame(props) {
   const {
@@ -62,7 +66,15 @@ export function MapGame(props) {
     GameNotifier.broadcastEvent(userName, GameEvent.End, newScore);
   }
   
+  function MapClickHandler() {
+    useMapEvent('click', (e) => {
+      const clickedLat = e.latlng.lat;
+      const clickedLong = e.latlng.lng;
 
+      handleMapClick(clickedLat, clickedLong); 
+    });
+    return null;
+  }
   const handleMapClick = (event) => {
     const fakeScore = Math.floor(Math.random() * 1000);
     const fakeGuess = Math.floor(Math.random() * 1000);
