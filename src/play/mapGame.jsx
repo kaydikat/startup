@@ -1,12 +1,8 @@
 import React, { useState, useEffect } from 'react';
-
-// leaflet is a library for interactive maps
 import { MapContainer, TileLayer, useMapEvent } from 'react-leaflet';
 import L from 'leaflet';
-// import 'leaflet/dist/leaflet.css';
 import templeData from '../data/temples.json';
 import { GameNotifier, GameEvent } from './gameNotifier';
-
 import './mapGame.css';
 
 export function MapGame(props) {
@@ -53,28 +49,21 @@ export function MapGame(props) {
       credentials: 'include',
     });
   
-    // Process the server's response
     const scores = await response.json();
-  
-    // Now you have access to the scores sent by the server
     console.log('High scores:', scores);
   
-    // Optionally, update your state to reflect the new scores
-    // setScores(scores);
-  
-    // Notify other players
     GameNotifier.broadcastEvent(userName, GameEvent.End, newScore);
   }
-  
+
   function MapClickHandler() {
     useMapEvent('click', (e) => {
       const clickedLatitude = e.latlng.lat;
       const clickedLongitude = e.latlng.lng;
-
       handleMapClick(clickedLatitude, clickedLongitude); 
     });
     return null;
   }
+
   const handleMapClick = (clickedLatitude, clickedLongitude) => {
     if (!temple) {
       return;
@@ -83,6 +72,7 @@ export function MapGame(props) {
     const templeLatitude = parseFloat(temple.Latitude);
     const templeLongitude = parseFloat(temple.Longitude);
 
+    // Distance from user's IP-based location to temple:
     const distanceForUser = calculateDistance(
       userLatitude,
       userLongitude,
@@ -90,6 +80,7 @@ export function MapGame(props) {
       templeLongitude
     );
 
+    // Distance from clicked location to temple:
     const distanceForClick = calculateDistance(
       clickedLatitude,
       clickedLongitude,
@@ -97,18 +88,22 @@ export function MapGame(props) {
       templeLongitude
     );
 
-    // actual score logic
+    // Scoring logic:
+    // If distanceForClick <= 5000 miles, score scales linearly from 1000 at 0 mi to 0 at 5000 mi.
     const maxScore = 1000;
-    const scorePenalty = Math.min(distanceForClick*10, maxScore);
-    const gainedScore = Math.max(maxScore - scorePenalty, 0);
+    let gainedScore = 0;
+    const maxDistanceForPoints = 5000;
+    if (distanceForClick < maxDistanceForPoints) {
+      gainedScore = Math.round(maxScore * (1 - (distanceForClick / maxDistanceForPoints)));
+    } else {
+      gainedScore = 0;
+    }
 
     const newTotalScore = totalScore + gainedScore;
     setTotalScore(newTotalScore);
-
+    setGuessError(distanceForClick);
     setLastDistance(distanceForUser);
     setLastTempleName(temple.Temple);
-    setTotalScore(prevScore => prevScore + fakeScore);
-    setGuessError(prevGuessError => prevGuessError + fakeGuess);
 
     if (templeNumber < 5) {
       setTempleNumber(prevNumber => prevNumber + 1);
@@ -127,8 +122,7 @@ export function MapGame(props) {
     setLastTempleName('');
     selectRandomTemple();
 
-     // Let other players know a new game has started
-     GameNotifier.broadcastEvent(userName, GameEvent.Start, {});
+    GameNotifier.broadcastEvent(userName, GameEvent.Start, {});
   };
 
   if (!temple) {
@@ -139,7 +133,7 @@ export function MapGame(props) {
     // Haversine formula
     const toRadians = (degrees) => (degrees * Math.PI) / 180;
 
-    const R = 6371; // Earth's radius in kilometers
+    const R = 6371; // km
     const dLat = toRadians(lat2 - lat1);
     const dLon = toRadians(lon2 - lon1);
 
@@ -151,12 +145,9 @@ export function MapGame(props) {
         Math.sin(dLon / 2);
 
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    const distanceKm = R * c; // Distance in kilometers
+    const distanceKm = R * c; 
 
-    // Convert kilometers to miles
     const distanceMiles = distanceKm * 0.621371;
-
-    // Round to one decimal place
     const roundedDistance = Math.round(distanceMiles * 10) / 10;
 
     return roundedDistance;
@@ -175,20 +166,29 @@ export function MapGame(props) {
           <h2>
             Temple {templeNumber} of 5: {temple.Temple}
           </h2>
-          <div className="map-container" onClick={handleMapClick}>
-            <img
-              src="world_map.png"
-              alt="World Map"
-              style={{ width: '100%', cursor: 'pointer' }}
-            />
+          <div className="map-container">
+            <MapContainer
+              center={[20,0]}
+              zoom={1.5}
+              style={{ width: '100%', height: '500px' }}
+              scrollWheelZoom={false}
+              doubleClickZoom={false}
+              zoomControl={false}
+            >
+              <TileLayer
+                attribution='&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors'
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              />
+              <MapClickHandler />
+            </MapContainer>
           </div>
         </>
       )}
       {lastDistance !== null && (
         <div className="score-info">
-          <p>Your Distance from {lastTempleName}: {lastDistance}mi</p>
+          <p>Your Distance from {lastTempleName}: {lastDistance} mi</p>
           <p>Total Score: {totalScore}</p>
-          <p>Guess Error: {guessError}</p>
+          <p>Guess Error: {guessError} mi</p>
         </div>
       )}
     </div>
