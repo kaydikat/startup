@@ -68,31 +68,44 @@ export function MapGame(props) {
   
   function MapClickHandler() {
     useMapEvent('click', (e) => {
-      const clickedLat = e.latlng.lat;
-      const clickedLong = e.latlng.lng;
+      const clickedLatitude = e.latlng.lat;
+      const clickedLongitude = e.latlng.lng;
 
-      handleMapClick(clickedLat, clickedLong); 
+      handleMapClick(clickedLatitude, clickedLongitude); 
     });
     return null;
   }
-  const handleMapClick = (event) => {
-    const fakeScore = Math.floor(Math.random() * 1000);
-    const fakeGuess = Math.floor(Math.random() * 1000);
-
-    const newTotalScore = totalScore + fakeScore;
-    setTotalScore(newTotalScore);
+  const handleMapClick = (clickedLatitude, clickedLongitude) => {
+    if (!temple) {
+      return;
+    }
 
     const templeLatitude = parseFloat(temple.Latitude);
     const templeLongitude = parseFloat(temple.Longitude);
 
-    const distanceInKm = calculateDistance(
+    const distanceForUser = calculateDistance(
       userLatitude,
       userLongitude,
       templeLatitude,
       templeLongitude
     );
 
-    setLastDistance(distanceInKm);
+    const distanceForClick = calculateDistance(
+      clickedLatitude,
+      clickedLongitude,
+      templeLatitude,
+      templeLongitude
+    );
+
+    // actual score logic
+    const maxScore = 1000;
+    const scorePenalty = Math.min(distanceForClick*10, maxScore);
+    const gainedScore = Math.max(maxScore - scorePenalty, 0);
+
+    const newTotalScore = totalScore + gainedScore;
+    setTotalScore(newTotalScore);
+
+    setLastDistance(distanceForUser);
     setLastTempleName(temple.Temple);
     setTotalScore(prevScore => prevScore + fakeScore);
     setGuessError(prevGuessError => prevGuessError + fakeGuess);
