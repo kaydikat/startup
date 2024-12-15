@@ -1243,3 +1243,90 @@ while (1) {
 - value of tag in hex is 0x02
 - it's a miss becaue the valid bit wasn't on
 - not a page fault when the valid bit is 1
+
+- 0x03a9 - 00 0011 1010 1001
+    - known
+        - memory is byte addressable
+        - memory accesses are to 1-byte words
+        - virtual address are 14 bits wide
+        - phsycial addresses are 12 bits wide
+        - page size is 64 bytes
+        - TLB is 4-way set associative with 16 total entries
+        - L1 d-cache is physically addresses and direct mapped, with a 4-byte line size and 16 total sets
+    - VPO - virtual page offset - 64 bytes - 2^6 - 6 bits
+    - VPN - 00 0011 10 - 0x0e 
+    - TLB index - 4 set - 2^2 - size 2 bits - get past the offset - 10 = 0x02
+    - TLB tag - 14(virtual address length) - 6(virtual offset) - 2(TLB index) = 6 bits - 0x03
+    - TLB hit - no
+    - Page fault - no
+    - PPN - 0x11
+    - phsical address - PPN + PPO = 0x11 + 101001 = 0x11 + 0x29 = 00010001 + 101001 = 0100 0110 1001
+
+- 0x0040 - 0000 0000 0100 0000
+    - VPO - 64 bytes - 2^6 - 6 bits
+    - VPN - 0000 0000 01 - 0x01
+    - TLB index - get past the offset - 01 = 0x01
+    - TLB tag - 0x0
+    - page hit - no
+    - page fault - yes
+    - PPN - is N/A because in page table 04 didn't correlate to anything
+# Midterm 2 Write up
+Wrong Answers - 7, 29, 32, 36
+
+If getpid() is called by two threads associated with the smae process, the return value from both calls will be identical - True
+If two treads call sem_wait at the same time, one thread might get interrupted between check and decrement, such that sem’s value become negative - False - Wait and post are atomic operations that has a lower level mechanism that helps them not go at the same time
+A semaphore must be initialize with a value greater than zero for it to be of any use - False - Remember you set items to 0 in producer consume
+If not used with a socket of type SOCK_DGRAM, the sendto() must be use. - connect() 
+Only ever used for a server socket that is of typ SOCK_STREAM; never used on clicen sockets, and never used on sockets of type SOCK_DGRAM - accept() and listen()
+Must be used for a server socket, whether of type SOCK_STREAM or SOCK_DGRAM; optional for a client socket of with type - bind()
+Returns a file descriptor corresponding to a new socket - H - socket() AND accept(). Remember accept returns a file descriptor for the accepted socket.
+If not used, then the socket is assigned an arbitrary unused port as its local port - bind()
+After calling this on a socket, the socket can still be used for calling accept() to handle new connections but not for sending and receiving data - listen()
+If there was an error, returns a value less than 0 and set errno appropriately - all
+Suppose a prgram uses a socke tof type SOCK_DGRAM to send a datagram using a single call to send() or sento(). How many calls to recv() or recvfrom() are required on the receiving first to read all the bytes in that datagram? - Exactly one
+Suppose and HTTP dlicent uses a socket type SOCK_STREAm to send an HTTP request to the HTTP server. How many calls to recv() are required on the receiving host to read all the bytes sent? - One or more
+UDP - nread 1 - 100
+G - 80
+F - 70
+J - Blocks                                                
+I - 160
+G - 80
+E - 60
+J - Blocks
+Immediatled after three calls to send() you call close(sock). If the connection has been closed it will return a 0. A
+When does the kernel perform the “”pending and not blocked” calculation? - Every time just before a process is being schedules to run
+When is a SIGCHILD signal sent? - every time a process terminates
+Assume the follogin shell command 2>&1 - dup2(1,2)
+If tow SIGCHLD signals are sent to a process while the signal has been blocked using sigprocmast(), then a SIGCHLD singal handler will be fall twice if/when the block is lifted - False
+What cuntion or system call is used by an HTTP server to make the query string available to a CGI progrma? - G - setenv()
+What function or system calls is used by an HTTP server to make th socket available to the CGI program for returning the response? - A - dup2
+Which function is used by a CGI program itself to send string content back to the client-F - printf()
+
+While (1) {
+	Cfd = accept(sfd,...);
+	If (fork() == 0) {
+		close(sfd);
+		handle_client(cfd);
+		close(cfd);
+		exit(0);
+	}
+	close(cfd);
+}
+This is a server thaat runs and never quits. 
+
+A handler for SIGCHLD should be implemented to properly reap zombie child processes. - TRUE - Explanation: Servers and shells both need to reap their children or else there will be an excessive number of zombies. The while loop makes the parent go forever but it’s children are being terminated so they need to be reaped with a SIGCHLD handler. 
+If close(cfd) is called in the parent before the child is done with handle_client, then the child will no longer be able to communicate with the client. This describes a race condition. - False
+Assume the following call is made by the HTTP server, immediately after it calls accept()
+nread = recv(sock, buf 1024, 0)
+If buf does not contain “r/n/r/n”, call recv() again repeatedly until it does.
+Consider the following two lies of code, used by the HTTP client to read the HTTP response from the socket using recv():
+nread = recv(sock, buf, 1024, 0);
+Int len = strlen(buf)
+Which line of code should go between the above lines of code wher elen will have a value that accurately represent the number of bytes that were read from the socket?
+Answer: buf[1024] = ‘\0’
+Explanation: strlen reads up to the null character so we need to add it to the end of the buffer so it knows when to stop reading so it can represent the right number ot bytes
+Because ptrhead_join() is not called, a thread will contine to consume system resources after it return from handle_client_t() - False
+If close(cfdp_ is called in the main thread before the new thread is done handling the client then the new thread might cause a race condition - TRUE
+Up to NUM_THREADS + 1 thread associated with the process might be 
+The process might exit before all threads have run to completion - TRUE - when the main thread exits it will cause all other threads to terminate
+- 37 - producer
